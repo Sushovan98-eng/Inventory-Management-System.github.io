@@ -1,0 +1,63 @@
+<% provide(:title, "Dashboard")%>   
+<main class="page-body">
+    <div class="row dash_board justify-content-center">
+        <div class="card " style="width: 18rem;">
+            <section class="card-body">
+                <h5 class="card-title">Brand</h5>
+                <p class="card-text">
+                    <%= "Total Number of Brand #{Brand.all.count}"%>
+                </p>
+                <%= link_to "View Details", brands_path, class: "btn btn-primary"%>
+            </section>
+        </div>
+        <div class="card " style="width: 18rem;">
+            <section class="card-body">
+                <h5 class="card-title">Categories</h5>
+                <p class="card-text">
+                    <%= "Total Number of Category #{Category.all.count}"%>
+                </p>
+                <%= link_to "View Details", categories_path, class: "btn btn-primary"%>
+            </section>
+        </div>
+        <div class="card " style="width: 18rem;">
+            <section class="card-body">
+                <h5 class="card-title">Items</h5>
+                <p class="card-text">
+                    <%= "Total Number of Item #{Item.all.count}"%>
+                </p>
+                <%= link_to "View Details", items_path, class: "btn btn-primary"%>
+            </section>
+        </div>
+        <div class="card " style="width: 18rem;">
+            <section class="card-body">
+                <h5 class="card-title">Allotments</h5>
+                <p class="card-text">
+                    <%= "Number of current allotment #{get_allotment_count(current_user)}"%>
+                </p>
+                <%= link_to "View Details", allotments_path, class: "btn btn-primary"%>
+            </section>
+        </div>
+        <div class="card " style="width: 18rem;">
+            <section class="card-body">
+                <h5 class="card-title">Issues</h5>
+                <p class="card-text">
+                    <%= "Total Pending Issue #{unsolved_issues_count}"%>
+                </p>
+                <%= link_to "View Details", issues_path, class: "btn btn-primary"%>
+            </section>
+        </div>
+        <% if current_user.admin %>
+            <div class="card " style="width: 18rem;">
+                <section class="card-body">
+                    <h5 class="card-title">Users</h5>
+                    <p class="card-text">
+                        <%= "Total Number of Users #{User.all.count}"%>
+                    </p>
+                    <%= link_to "View Details", users_path, class: "btn btn-primary"%>
+                </section>
+            </div>
+        <% end %>    
+    </div>
+</main>
+
+

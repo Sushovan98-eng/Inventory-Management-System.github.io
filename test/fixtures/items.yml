@@ -1,0 +1,23 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  name: MyString
+  brand_id: 1
+  category_id: 1
+  in_stock: 1
+  price: 9.99
+  minimum_required_stock: 1
+  procurement_time_in_weeks: 1
+  quantity: MyString
+  total_stock: 1
+
+two:
+  name: MyString
+  brand_id: 1
+  category_id: 1
+  in_stock: 1
+  price: 9.99
+  minimum_required_stock: 1
+  procurement_time_in_weeks: 1
+  quantity: MyString
+  total_stock: 1

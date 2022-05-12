@@ -1,0 +1,42 @@
+<div id="<%= dom_id item %>" class="items">
+  <p>
+    <strong>Item Name:</strong>
+    <%= item.name %>
+  </p>
+
+  <p>
+    <strong>Brand:</strong>
+    <%= get_brand_name_by_id item.brand_id %>
+  </p>
+
+  <p>
+    <strong>Category:</strong>
+    <%= get_category_name_by_id item.category_id %>
+  </p>
+
+  <p>
+    <strong>Current Stock:</strong>
+    <%= item.in_stock %>
+  </p>
+
+  <p>
+    <strong>Total Stock:</strong>
+    <%= item.total_stock %>
+  </p>
+
+  <p>
+    <strong>Minimum Required Stock:</strong>
+    <%= item.minimum_required_stock %>
+  </p>
+
+  <p>
+    <strong>Price:</strong>
+    <%= item.price %>
+  </p>
+
+  <p>
+    <strong>Quantity:</strong>
+    <%= item.quantity %>
+  </p>
+
+</div>

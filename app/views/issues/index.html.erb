@@ -1,0 +1,71 @@
+<% provide(:title, (Current.user.admin? ? "All Issues" : "Your Issues")) %>
+
+<main class="page-body">
+  <%= render "shared/flash" %>
+  <h2>All Issues</h2>
+  <% if !@issues.blank? %>
+    
+    <table class="table table-striped table-hover table-bordered text-center">
+      <thead class="table-dark"> 
+        <tr>
+          <th> Issue no. </th>
+          <th> Item </th>
+          <th> Reported at </th>
+                 
+          <% if Current.user.admin? %>
+            <th>
+              User
+            </th>
+          <% end %>
+
+          <th> Solved? </th>
+          <th> </th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <% @issues.each do |issue| %>
+          <tr>
+            <td>
+              <%= "ISN0#{issue.id}" %>
+            </td>
+
+            <td>
+              <%= item_display_name get_item_by_id issue.item_id %>
+            </td>
+
+            <td>
+              <%= issue.created_at %>
+            </td>
+
+            
+
+            <% if Current.user.admin? %>
+              <td>
+                <%= get_user_name_by_id issue.user_id %>
+              </td>
+            <% end %>
+
+            <td>
+              <% if issue.solved_at.nil? %>
+                No
+              <% else %>
+                Solved at : <%= issue.solved_at %>
+              <% end %>
+            </td>
+            <td><%= link_to "Details", issue, class: "btn btn-info" %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  <% else %>
+    <div class="text-center">
+      <%= Current.user.admin? ? "NO Issues have been reported till now." : "No issue is reported by you." %>
+    </div>
+  <% end %>
+  <% if !Current.user.admin? %>
+    <div class="button-div">
+      <%= link_to "Report Issue", new_issue_path, class: "btn btn-lg btn-primary" %>
+    </div>
+  <% end %>
+</main>

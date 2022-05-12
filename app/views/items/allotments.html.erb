@@ -1,0 +1,71 @@
+<% provide(:title, "Items Allotments") %>
+<%= render "shared/flash" %>
+<main class="page-body">
+  <% if !@allotments.blank? %>
+  <h2>Allotment History</h2>
+    <div class="container-fluid">
+      <table class="table table-striped table-hover table-bordered text-center">
+      <thead class="table-dark">
+        <tr>
+          <th>User</th>
+          <th>Item</th>
+          <th>Allotment quantity</th>
+          <th>Alloted at</th>
+          <th>Dealloted at</th>
+          <% if current_user.admin? %>
+            <th></th>
+          <% end %>
+        </tr>
+      </thead>
+
+      <tbody>
+        <% @allotments.each do |allotment| %>
+          <% @item = get_item_by_id allotment.item_id %>
+          <tr>
+            <td>
+              <%= get_user_name_by_id allotment.user_id %>
+            </td>
+            <td>
+              <%= item_display_name @item %>
+            </td>
+            <td class="count">
+              <%= allotment.allotment_quantity %>
+            </td>
+            <td>
+              <%= allotment.created_at %>
+            </td>
+            <td>
+              <%= get_deallotment_status allotment %>
+            </td>
+            <% if current_user.admin? %>
+            <td>
+              
+                <div class="dropdown">
+                  <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
+                    Options
+                  </a>
+                  <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                    <li>
+                        <%= link_to "Update allotments", edit_allotment_path(allotment) %>
+                    </li>
+                    <li>
+                        <%= link_to "Deallot", deallot_allotment_path(allotment) %>
+                    </li>                    
+                  </ul>
+              </div>
+                     
+            </td>
+            <% end %>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+    </div>
+   <% else %> 
+    <p class="text-center">
+      NO allotments have been made.<br/>
+      Click Add Allotment button to add new Allotment.
+    </p>    
+  <% end %>
+</main>
+

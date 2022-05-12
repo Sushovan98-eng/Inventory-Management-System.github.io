@@ -1,0 +1,39 @@
+<% provide(:title, "Sign Up")%>
+<main class="page-body">
+    <h1>Sign Up</h1>
+    <div class="row d-flex justify-content-center">
+    <div class="col-md-6">
+        
+        <%= form_for @user, url: sign_up_path do |f| %>
+
+            <%= render "shared/error", object: f.object  %>
+
+            <div class="form-group mb-3">
+                <%= f.label :name %>
+                <%= f.text_field :name, class: "form-control" %>
+            </div>
+            
+            <div class="form-group mb-3">
+                <%= f.label :email %>
+                <%= f.email_field :email, class: "form-control" %>
+            </div>
+            <div class="form-group mb-3">
+                <%= f.label :mobile_no %>
+                <%= f.text_field :mobile_no, class: "form-control" %>
+            </div>
+            <div class="form-group mb-3">
+                <%= f.label :password %>
+                <%= f.password_field :password, class: "form-control" %>
+            </div>
+            <div class="form-group mb-3">
+                <%= f.label :password_confirmation %>
+                <%= f.password_field :password_confirmation, placeholder: "Abcd12#", class: "form-control" %>
+            </div>
+            <div class="form-group mb-3 d-flex justify-content-center">
+                <%= f.submit "Sign Up", class: "btn btn-primary" %>
+            </div>
+        <%end%>
+    
+    </div>
+    </div>
+</main>

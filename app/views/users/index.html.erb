@@ -1,0 +1,35 @@
+<% if current_user.admin? %>
+<% provide(:title, "All Brands")%>
+
+<main class="page-body">
+<%= render "shared/flash"%>
+    <h2>All Users</h2>
+    <div id="users">
+     <% if !@users.empty? %>
+        <table class="table table-striped table-hover table-bordered text-center">
+          <thead class="table-dark">
+            <tr>
+              <th>User's name</th>
+              <th>Email</th>
+              <th>Mobile No.</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody> 
+            <% @users.each do |user| %>
+                <tr>
+                  <td><%= user.name %></td>
+                  <td><%= user.email %></td>
+                  <td><%= user.mobile_no %></td>
+                  <td><%= link_to "Allotments", current_allotment_user_path(user), class: "btn btn-info" %></td>
+                </tr> 
+            <% end %>                 
+          </tbody>    
+        </table> 
+     <% else %>
+        <p>No users found.</p> %>
+     <% end %>
+    </div>
+</main>
+<% end %>
+    

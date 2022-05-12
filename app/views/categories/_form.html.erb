@@ -1,0 +1,22 @@
+<div class="row d-flex justify-content-center">
+    <div class="col-md-6">
+      <%= form_for @category do |f| %>
+
+          <%= render "shared/error", object: f.object  %>
+          
+        <div class="mb-3">
+          <%= f.label :name %>
+          <%= f.text_field :name, class: 'form-control' %>
+        </div>
+
+        <div class="mb-3">
+          <%= f.label :description %>
+          <%= f.text_field :description, class: 'form-control' %>
+        </div>
+
+        <div>
+          <%= f.submit "Submit", class: "btn btn-primary" %>
+        </div>
+      <% end %>
+    </div>
+  </div>

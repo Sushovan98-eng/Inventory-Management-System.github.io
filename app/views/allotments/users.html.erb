@@ -1,0 +1,13 @@
+<% provide(:title, "All Brands")%>
+
+<main class="page-body">
+<%= render "shared/flash"%>
+    <h2>User Details</h2>       
+        <div class="card " style="width: 65wh;">
+            <div class="card-header text-center">
+                <p><Strong>Name: </strong><%= @user.name %></p>
+                <p><Strong>Email: </strong><%= @user.email %></p>   
+                <p><Strong>Mobile No. : </strong><%= @user.mobile_no %></p>                 
+            </div> 
+        </div>
+</main>

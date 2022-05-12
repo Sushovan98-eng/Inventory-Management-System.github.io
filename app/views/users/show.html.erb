@@ -1,0 +1,28 @@
+<% provide(:title, "Profile")%>
+<main class="page-body">
+  <br/>
+  <%= render "shared/flash"%>
+  <h3>Your Profile</h3>
+  <div class="card">
+    <div class="card-header">
+    
+    <p>
+        <strong>Name: </strong>
+        <%= current_user.name %>
+    </p>
+    <p>
+        <strong>Email: </strong>
+        <%= current_user.email %>
+    </p>
+    <p>
+        <strong>Mobile No: </strong>
+        <%= current_user.mobile_no %>
+    </p>
+
+    </div> 
+  </div>
+  <br/>
+  <div class="text-center">
+    To Chane your password,  <%= link_to "Click here!", edit_password_path, class: "btn btn-link" %>  
+  </div>
+</main>

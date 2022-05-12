@@ -1,0 +1,41 @@
+<div id="<%= dom_id issue %>">
+  <p>
+    <strong>Issue no.: </strong>
+    <%= "ISE##{issue.id}" %>
+  </p>
+
+  <p>
+    <strong>Item: </strong>
+    <%= item_display_name get_item_by_id issue.item_id %>
+  </p>
+
+  <p>
+    <strong>Description: </strong>
+    <%= issue.issue_description %>
+  </p>
+
+  <p>
+    <strong>Reported at: </strong>
+    <%= issue.created_at %>
+  </p>
+
+  
+
+  <% if Current.user.admin? %>
+        <p>
+            <strong> User: </strong>
+            <%= get_user_name_by_id issue.user_id %>
+        </p>
+  <% end %>   
+
+  <p>
+    <strong> Solved?: </strong>
+        <% if issue.solved_at.nil? %>
+            No
+        <% else %>
+            Solved at : <%= issue.solved_at %> <br/>
+           <strong> Feedback:</strong> <%= issue.feedback %>
+        <% end %>
+  </p>
+
+</div>

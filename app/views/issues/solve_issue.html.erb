@@ -1,0 +1,20 @@
+<% provide(:title, "Solve issue") %>
+
+<div class="row d-flex justify-content-center">
+  <div class="col-md-8 col-md-offset-1">
+    <main class="page-body">
+      <h2>Give Feedback</h2>
+      <%= form_for(@issue, url: mark_as_solved_issue_url) do |f| %>
+        <%= render 'shared/error', object: f.object %>
+
+        <div class="form-group mb-3">
+          <%= f.label :feedback %>
+          <%= f.text_area :feedback, class: 'form-control' %>
+        </div>
+        <div class="mb-3 d-flex justify-content-center">
+        <%= f.submit "Submit", class: "btn btn-primary" %>
+        </div>
+      <% end %>
+    </main>
+  </div>
+</div>

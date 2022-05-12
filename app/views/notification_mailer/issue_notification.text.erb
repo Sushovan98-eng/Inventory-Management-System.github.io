@@ -1,0 +1,9 @@
+Hello <%= @user.name %>,
+
+The issue reported by you, ISN0<%= @issue.id %> for the item <%= item_display_name(get_item_by_id(@issue.item_id)) %> has been solved.
+
+For more details check here : <%= link_to "ISN0#{@issue.id}", @issue %>
+
+
+Thanks,
+Inventory Management System

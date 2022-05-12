@@ -1,0 +1,19 @@
+
+<% provide(:title, "Issue")%>
+
+<main class="page-body">
+  <br/>
+  <%= render "shared/flash"%>
+  <div class="card">
+    <div class="card-header">
+      <%= render @issue %>
+    </div> 
+  </div>
+  <br/>
+  <div class="text-center">
+    <% if current_user.admin? && @issue.solved_at.nil? %>
+      <%= link_to "Solve issue", solve_issue_issue_path(@issue), class: "btn btn-primary"  %>  |
+    <% end %>
+    <%= link_to "Back", issues_path, class: "btn btn-secondary" %>
+  </div>
+</main>

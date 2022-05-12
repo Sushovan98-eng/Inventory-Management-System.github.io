@@ -1,0 +1,6 @@
+Hello <%= @user.name %>,
+
+The current stock of the item, <strong> <%= item_display_name @item %> </strong> is <strong> <%= @item.in_stock %> </strong> which is <%= (@item.in_stock == @item.minimum_required_stock) ? "equal to" : "below" %> the minimum required stock of the item (<strong> <%= @item.minimum_required_stock %> </strong>). You are requested to check the stock of the item and take the action.
+
+Thanks,
+Inventory Management System.
