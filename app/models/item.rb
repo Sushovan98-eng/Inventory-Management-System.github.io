@@ -7,6 +7,7 @@ class Item < ApplicationRecord
     validates :name, presence: true, uniqueness: true
     attribute :in_stock, default: 0
     attribute :total_stock, default: 0
+    attribute :new_stock, default: 0
     attribute :minimum_required_stock, default: 0
   
     def item_display_name

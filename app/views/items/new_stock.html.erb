@@ -1,0 +1,19 @@
+<% provide(:title, "Increase Stock") %>
+
+<div class="row d-flex justify-content-center">
+  <div class="col-md-8 col-md-offset-1">
+    <main class="page-body">
+      <h2>Increase Stock</h2>
+      <%= form_for(@item, url: increase_stock_item_url) do |f| %>
+        <%= render 'shared/error', object: f.object %>
+        <div class="form-group mb-3">
+          <%= f.label :new_stock %>
+          <%= f.text_area :new_stock, class: 'form-control' %>
+        </div>
+        <div class="mb-3 d-flex justify-content-center">
+        <%= f.submit "Submit", class: "btn btn-primary" %>
+        </div>
+      <% end %>
+    </main>
+  </div>
+</div>

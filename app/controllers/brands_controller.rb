@@ -2,7 +2,7 @@ class BrandsController < ApplicationController
 
   before_action :logged_in_user, only: [:index, :new, :create, :edit, :update, :destroy,:show]
   before_action :get_brand_by_id, only: [:edit, :update, :show]
-  before_action :admin_user, only: [:edit, :update, :new, :create, :destroy]
+  #before_action :admin_user, only: [:edit, :update, :new, :create, :destroy]
 
 
 

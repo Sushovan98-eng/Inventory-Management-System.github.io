@@ -8,7 +8,7 @@
 
         <div class="form-group mb-3">
           <%= f.label :item_id, "Item : " %>
-          <%= f.collection_select(:item_id, @items, :id, :name, include_blank: '--Not selected--') %>
+          <%= f.collection_select(:item_id, @items, :id, :name, include_blank: '--select item--') %>
         </div>
 
         <div class="form-group mb-3">

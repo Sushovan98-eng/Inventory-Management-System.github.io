@@ -12,25 +12,21 @@
             <th>Manufacturer</th>
             <th>Manufacturer Email</th>
             <th>Manufacturer Office</th>
-            <% if current_user.admin? %>
             <th colspan="3"></th>
-            <% else %>
-            <th colspan="2"></th>
-            <% end %>
           </tr>
         </thead>
         <tbody> 
           <% @brands.each do |brand| %>
               <tr>
+
                 <td><%= brand.name %></td>
                 <td><%= brand.manufacturer %></td>
                 <td><%= brand.manufacturer_email %></td>
                 <td><%= brand.manufacturer_office %></td>
-                <td><%= link_to "Show", brand, class: "btn btn-primary" %></td>
-                <% if current_user.admin? %>
-                  <td><%= link_to "Edit", edit_brand_path(brand), class: "btn btn-info"%></td>
-                  <td><%= link_to "Destroy", brand, method: :delete, data: {confirm: "Are you sure?" }, class: "btn btn-danger" %></td>    
-                <% end %> 
+                <td><%= link_to "Show", brand, class: "btn btn-primary" %></td>              
+                <td><%= link_to "Edit", edit_brand_path(brand), class: "btn btn-info"%></td>
+                <td><%= link_to "Delete", brand, method: :delete, data: {confirm: "Are you sure?" }, class: "btn btn-danger" %></td>     
+              
               </tr> 
           <% end %>        
         </tbody>    
@@ -41,8 +37,8 @@
     <% end %>
   </div>
   <br/>
-  <% if current_user.admin? %>
+
   <%= link_to "Add Brand", new_brand_path, class:"btn btn-secondary" %>
-  <% end %>
+
 </main>
  

@@ -11,7 +11,7 @@
 
             <div>
               <% @non_admins = User.where(admin: false) %>
-              <%= f.collection_select(:user_id, @non_admins, :id, :name, include_blank: '--Not Allocated--', class: 'form-control') %>
+              <%= f.collection_select(:user_id, @non_admins, :id, :name, include_blank: '--select user--', class: 'form-control') %>
             </div>
           </div>
 
@@ -19,7 +19,7 @@
             <%= f.label :item_id %>
 
             <div>
-              <%= f.collection_select(:item_id, Item.all, :id, :item_display_name, include_blank: '--Not Allocated--', class: 'form-control') %>
+              <%= f.collection_select(:item_id, Item.all, :id, :item_display_name, include_blank: '--select item--', class: 'form-control') %>
             </div>
           </div>
 

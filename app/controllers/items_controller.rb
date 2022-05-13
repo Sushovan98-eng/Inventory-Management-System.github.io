@@ -2,7 +2,7 @@ class ItemsController < ApplicationController
     include ApplicationHelper
     before_action :logged_in_user, only: [:index, :new, :create, :edit, :update, :show, :destroy]
     before_action :get_item_by_id, only: [:edit, :update, :show]
-    before_action :admin_user, only: [:destroy, :new, :create, :edit, :update]
+    #before_action :admin_user, only: [:destroy, :new, :create, :edit, :update]
 
 
     def index
@@ -50,6 +50,24 @@ class ItemsController < ApplicationController
         flash[:warning] =  "Item has been deleted."
     end
 
+    def new_stock        
+        @item = Item.find(params[:id])
+    end
+
+    def increase_stock
+        @item = Item.find(params[:id])
+        @item.total_stock += item_params[:new_stock].to_i
+        @item.in_stock += item_params[:new_stock].to_i        
+        if @item.save
+            redirect_to items_path
+            flash[:warning] = "Stock increased successfully."
+        else
+            render :new_stock
+        end
+    end
+
+
+
     def allotments
         @allotments = Allotment.where(item_id: [params[:id]])
     end
@@ -57,7 +75,7 @@ class ItemsController < ApplicationController
     private
 
     def item_params
-        params.require(:item).permit(:name, :category_id, :brand_id, :price, :quantity, :price, :total_stock, :minimum_required_stock)
+        params.require(:item).permit(:name, :category_id, :brand_id, :price, :quantity, :price, :total_stock, :minimum_required_stock, :new_stock)
     end
 
     def get_item_by_id

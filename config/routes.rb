@@ -39,6 +39,8 @@ Rails.application.routes.draw do
   resources :items do
     member do
       get :allotments
+      get :new_stock
+      patch :increase_stock
     end
   end
   

@@ -8,15 +8,7 @@
       <%= render @brand %>
     </div>
     <div class="card-body text-center">
-    <% if current_user.admin? %>
-    <%= link_to "Edit", edit_brand_path(@brand),class:"btn btn-secondary" %>   |
-    <% end %>
-      
-      <%= link_to "Back", brands_path, class:"btn btn-secondary" %>
-    <% if current_user.admin? %>
-      <br/><br/>
-        <%= button_to "Destroy", @brand, method: :delete, data: {confirm: "Are you sure?" }, class:"btn btn-danger" %>
-    <% end %>
+    <%= link_to "Edit", edit_brand_path(@brand),class:"btn btn-secondary" %>
     </div>
   </div>
 </main>
