@@ -67,6 +67,9 @@ a {
   .btn {
     font-size: x-small;
   }
+  .big-btn {
+    font-size: 14px;
+  }
 }
 
 @media screen and (max-width: 768px) {
@@ -109,6 +112,10 @@ a {
   }
   div,
   p {
+    font-size: 12px;
+  }
+
+  .big-btn {
     font-size: 12px;
   }
 }
