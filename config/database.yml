@@ -81,6 +81,7 @@ test:
 #
 production:
   <<: *default
-  database: Inventory_Management_System_production
-  username: Inventory_Management_System
-  password: <%= ENV["INVENTORY_MANAGEMENT_SYSTEM_DATABASE_PASSWORD"] %>
+  database: <%= ENV["DATABASE_URL"] %>
+
+  #username: Inventory_Management_System
+  #password: <%= ENV["INVENTORY_MANAGEMENT_SYSTEM_DATABASE_PASSWORD"] %>
