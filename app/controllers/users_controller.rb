@@ -45,11 +45,7 @@ class UsersController < ApplicationController
     end
 
     def current_allotment
-      if current_user.admin?
-        @allotments = Allotment.where(dealloted_at: nil)
-      else
       @allotments = Allotment.where({user_id: [params[:id]], dealloted_at: nil})
-      end 
     end
 
     private

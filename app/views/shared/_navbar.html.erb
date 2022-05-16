@@ -19,9 +19,11 @@
         <li class="nav-item">
         <%= link_to "Items", items_path, class:"nav-link" %>
         </li>
-
-
-        
+        <% if current_user.admin? %>
+          <li class="nav-item">
+            <li><%= link_to "Allotments", allotments_path, class:"nav-link" %></li>
+          </li>
+        <% else %>
           <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
               Allotments
@@ -31,13 +33,17 @@
               <li><%= link_to "Current Allotments", current_allotment_user_path(current_user), class: "nav-link"%></li>
             </ul>
           </li>
-      
-
-
+        <% end %>     
+       
 
         <li class="nav-item">
           <%= link_to "Issues", issues_path, class:"nav-link" %>
         </li>
+        <% if current_user.admin? %>
+          <li class="nav-item">
+            <%= link_to "Users", users_path, class:"nav-link" %>
+          </li>
+        <% end %>
       <% end %>
       </ul>
 

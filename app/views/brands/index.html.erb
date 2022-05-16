@@ -2,6 +2,9 @@
 
 <main class="page-body">
 <%= render "shared/flash"%>
+<div class="d-flex justify-content-end">
+<%= link_to "Add Brand", new_brand_path, class:"btn btn-primary" %>
+</div>
   <h2>Brand List</h2>
   <div id="brands">
     <% if !@brands.empty? %>
@@ -36,9 +39,5 @@
       Click 'Add Brand' button to add new Brand.</p>
     <% end %>
   </div>
-  <br/>
-
-  <%= link_to "Add Brand", new_brand_path, class:"btn btn-secondary" %>
-
 </main>
  

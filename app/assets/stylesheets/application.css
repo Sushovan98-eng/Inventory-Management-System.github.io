@@ -13,3 +13,102 @@
  *= require_tree .
  *= require_self
  */
+h1,
+h2,
+h3 {
+  text-align: center;
+}
+
+a {
+  color: black;
+  text-decoration: none;
+}
+
+.card {
+  margin: 20px;
+}
+
+.dash_board {
+  background-color: rgb(218, 228, 180);
+}
+
+.container {
+  margin: 20px auto;
+}
+
+.container-fluid {
+  max-width: 1300px;
+  margin: 0 auto;
+}
+
+.dropdown-menu {
+  max-width: min-content;
+  text-align: center;
+}
+
+/* .page-body {
+   position: relative;
+ }
+ .alert {
+   position: absolute;
+   top: 0%;
+   right: 2%;
+   z-index: 1;
+   margin: 0;
+ }
+ .mt-4 {
+   margin-top: 0 !important;
+ } */
+
+@media screen and (max-width: 992px) {
+  table {
+    font-size: x-small;
+  }
+  .btn {
+    font-size: x-small;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .main img {
+    height: 50vh;
+    width: 90vw;
+  }
+  .main > .sign-up-btn {
+    top: 70%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+  table {
+    font-size: 6px;
+  }
+  .btn {
+    font-size: 5px;
+  }
+
+  .navbar-brand {
+    font-size: 12px;
+  }
+  .navbar a {
+    font-size: 12px;
+  }
+  .navbar button {
+    font-size: 8px;
+  }
+  .btn {
+    padding: 2px 3px;
+  }
+  .card {
+    font-size: 8px;
+  }
+  form {
+    font-size: 10px;
+  }
+  .form-control {
+    font-size: 10px;
+  }
+  div,
+  p {
+    font-size: 12px;
+  }
+}

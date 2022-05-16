@@ -2,81 +2,82 @@
 
 <main class="page-body allotment">
 <%= render "shared/flash" %>
+  <div class ="d-flex justify-content-end">
+      <% if current_user.admin? %>
+      <%= link_to "Make New Allotment", new_allotment_path, class:"btn btn-primary" %>
+      <% end %>
+  </div>
   <% if !@allotments.blank? %>
-  <h2>Allotment History</h2>
-    <div class="container-fluid">
-      <table class="table table-striped table-hover table-bordered text-center">
-        <thead class="table-dark">
-          <tr>
-            <th>User</th>
-            <th>Item</th>
-            <th>Allotment quantity</th>
-            <th>Alloted at</th>
-            <th>Dealloted at</th>
-            <% if current_user.admin? %>
-              <th></th>
-            <% end %>
-          </tr>
-        </thead>
-
-        <tbody>
-          <% @allotments.each do |allotment| %>
-            <% @item = get_item_by_id allotment.item_id %>
+    <h2>Allotment History</h2>
+      <div class="container-fluid">
+        <table class="table table-striped table-hover table-bordered text-center">
+          <thead class="table-dark">
             <tr>
-              <td>
+              <th>User</th>
+              <th>Item</th>
+              <th>Allotment quantity</th>
+              <th>Alloted at</th>
+              <th>Dealloted at</th>
               <% if current_user.admin? %>
-                <%= link_to "#{get_user_name_by_id allotment.user_id}", users_allotment_path(allotment) %>
-              <% else %>
-                <%= get_user_name_by_id allotment.user_id %>
-              <% end %>
-              </td>
-              <td>
-                <%= item_display_name @item %>
-              </td>
-              <td>
-                <%= allotment.allotment_quantity %>
-              </td>
-              <td>
-                <%= allotment.created_at %>
-              </td>
-              <td>
-                <%= get_deallotment_status allotment %>
-              </td>
-              <% if current_user.admin? %>
-              <td>
-
-                
-                  <div class=" dropdown">
-                    <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
-                      Options
-                    </a>
-                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                      <li>
-                          <%= link_to "Update", edit_allotment_path(allotment), class: "btn btn-link" %>
-                      </li>
-                      <li>
-                          <%= link_to "Deallot", deallot_allotment_path(allotment), class: "btn btn-link" %>
-                      </li>
-                      <li>
-                      </li>                    
-                    </ul>
-                  </div>
-                  
-                    
-              </td>
+                <th></th>
               <% end %>
             </tr>
-          <% end %>
-        </tbody>
-      </table>
-    </div>
-   <% else %> 
+          </thead>
+
+          <tbody>
+            <% @allotments.each do |allotment| %>
+              <% @item = get_item_by_id allotment.item_id %>
+              <tr>
+                <td>
+                <% if current_user.admin? %>
+                  <%= link_to "#{get_user_name_by_id allotment.user_id}", users_allotment_path(allotment) %>
+                <% else %>
+                  <%= get_user_name_by_id allotment.user_id %>
+                <% end %>
+                </td>
+                <td>
+                  <%= item_display_name @item %>
+                </td>
+                <td>
+                  <%= allotment.allotment_quantity %>
+                </td>
+                <td>
+                  <%= allotment.created_at %>
+                </td>
+                <td>
+                  <%= get_deallotment_status allotment %>
+                </td>
+                <% if current_user.admin? %>
+                <td>
+
+                  
+                    <div class=" dropdown">
+                      <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
+                        Options
+                      </a>
+                      <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                        <li>
+                            <%= link_to "Update", edit_allotment_path(allotment), class: "btn btn-link" %>
+                        </li>
+                        <li>
+                            <%= link_to "Deallot", deallot_allotment_path(allotment), class: "btn btn-link" %>
+                        </li>
+                        <li>
+                        </li>                    
+                      </ul>
+                    </div>
+                    
+                      
+                </td>
+                <% end %>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
+  <% else %> 
     <p class="text-center">
       <%= Current.user.admin? ? "NO allotment have been made till now. Click /'Add Allotment'/ button to make new allotment." : "NO allotment have been made till now." %>
     </p>    
-  <% end %>
-   <br/>
-  <% if current_user.admin? %>
-    <%= link_to "Make New Allotment", new_allotment_path, class:"btn btn-secondary" %>
-  <% end %>
+  <% end %>  
 </main>

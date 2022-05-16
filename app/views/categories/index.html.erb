@@ -2,6 +2,9 @@
 
 <main class="page-body">
 <%= render "shared/flash"%>
+  <div class="d-flex justify-content-end">
+    <%= link_to "Add Category", new_category_path, class: "btn btn-primary" %>
+  </div>
     <h2>Category List</h2>
     <div id="categories">
     <% if !@categories.empty? %>
@@ -29,8 +32,6 @@
       <p class="text-center">No category found!<br/>
        Click 'Add Category' button to add new Category.</p>
     <% end %>
-    </div>
-      <br/>
-      <%= link_to "Add Category", new_category_path, class:"btn btn-secondary" %>
+    </div>      
 </main>
   

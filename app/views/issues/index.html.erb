@@ -2,6 +2,11 @@
 
 <main class="page-body">
   <%= render "shared/flash" %>
+  <div class ="d-flex justify-content-end">
+     <% if !Current.user.admin? %>
+      <%= link_to "Report an Issue", new_issue_path, class: "btn btn-warning" %>
+     <% end %>
+  </div>
   <h2>All Issues</h2>
   <% if !@issues.blank? %>
     
@@ -62,10 +67,5 @@
     <div class="text-center">
       <%= Current.user.admin? ? "NO Issues have been reported till now." : "No issue is reported by you." %>
     </div>
-  <% end %>
-  <% if !Current.user.admin? %>
-    <div class="button-div">
-      <%= link_to "Report Issue", new_issue_path, class: "btn btn-lg btn-primary" %>
-    </div>
-  <% end %>
+  <% end %> 
 </main>
