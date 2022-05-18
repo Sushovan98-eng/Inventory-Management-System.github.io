@@ -18,7 +18,7 @@ class UsersController < ApplicationController
         session[:user_id] = @user.id
         redirect_to root_path, notice: "Thank you for signing up!"
       else
-        render :new
+        render :new, status: :unprocessable_entity
       end
     end
 
@@ -30,7 +30,7 @@ class UsersController < ApplicationController
         if Current.user.update(user_edit_params)
             redirect_to root_path, notice: "Password was successfully updated."
         else
-            render :edit
+            render :edit, status: :unprocessable_entity
         end
     end
 

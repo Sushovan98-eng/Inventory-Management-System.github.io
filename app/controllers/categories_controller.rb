@@ -16,7 +16,7 @@ class CategoriesController < ApplicationController
       if @category.save
         redirect_to categories_path, notice: "Category created successfully." 
       else
-        render :new
+        render :new, status: :unprocessable_entity
       end
     end
   
@@ -30,13 +30,14 @@ class CategoriesController < ApplicationController
       if @category.update(category_params)
         redirect_to categories_path, notice: "Category updated successfully."
       else
-        render :edit
+        render :edit, status: :unprocessable_entity
       end
     end
   
     def destroy
       Category.find(params[:id]).destroy
-      redirect_to categories_url, notice: "Category deleted."
+      redirect_to categories_url
+      flash[:warning] = "Category deleted."
     end
   
     private

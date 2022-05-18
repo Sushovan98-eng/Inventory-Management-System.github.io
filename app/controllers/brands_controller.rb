@@ -16,7 +16,7 @@ class BrandsController < ApplicationController
     if @brand.save
       redirect_to brands_path, notice: "Brand created successfully."
     else
-      render :new
+      render :new, status: :unprocessable_entity
     end
   end
 
@@ -32,7 +32,7 @@ class BrandsController < ApplicationController
     if @brand.update(brand_params)
       redirect_to brands_path, notice: "Brand updated successfully."
     else
-      render :edit
+      render :edit, status: :unprocessable_entity
     end
     
   end
@@ -43,7 +43,8 @@ class BrandsController < ApplicationController
 
   def destroy
     Brand.find(params[:id]).destroy
-    redirect_to brands_path, notice: "Brand deleted successfully."
+    redirect_to brands_path
+    flash[:warning] = "Brand deleted successfully."
   end
 
 

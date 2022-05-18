@@ -24,7 +24,7 @@ class IssuesController < ApplicationController
     if @issue.save
       redirect_to @issue, flash: { success: "Issue reported successfully." }
     else
-      render :new
+      render :new, status: :unprocessable_entity
     end
   end
 
@@ -38,10 +38,10 @@ class IssuesController < ApplicationController
     data = issue_solve_params.merge(solved_at: DateTime.now)
     @user = User.find(@issue.user_id)
     if @issue.update(data)
-      redirect_to issues_path, flash: { success: "Issue marked as solved successfully." }
+      redirect_to issues_path, flash: { notice: "Issue marked as solved successfully." }
       NotificationMailer.issue_notification(@user, @issue).deliver_now
     else
-      render :solve_issue
+      render :solve_issue, status: :unprocessable_entity
     end
   end
 

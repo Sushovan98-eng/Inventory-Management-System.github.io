@@ -33,7 +33,7 @@ class AllotmentsController < ApplicationController
         elsif @allotment.save
           successful_stock_update
         else
-          render :new
+          render :new, status: :unprocessable_entity
         end
       end
     end
@@ -49,7 +49,7 @@ class AllotmentsController < ApplicationController
       elsif @allotment.update(update_quantity_params)
         successful_stock_update
       else
-        render :edit
+        render :edit, status: :unprocessable_entity
       end
     end
 

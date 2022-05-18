@@ -4,7 +4,7 @@
   <div class="col-md-7">
     <main class="page-body">
       <%= form_for @issue do |f| %>
-        <%= render 'shared/error', object: f.object %>
+        <%= render "shared/error", object: f.object %>
 
         <div class="form-group mb-3">
           <%= f.label :item_id, "Item : " %>

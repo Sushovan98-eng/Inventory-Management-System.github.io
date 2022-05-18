@@ -9,7 +9,7 @@ class PasswordResetsController < ApplicationController
       #send an  email
       PasswordMailer.with(user: @user).reset.deliver_now
     end
-    redirect_to root_path, notice: "Email sent with password reset instructions."
+    redirect_to root_path, notice: "Email sent with password reset instructions.", status: :ok
   end  
 
   def edit
@@ -23,7 +23,7 @@ class PasswordResetsController < ApplicationController
     if @user.update(password_params)
       redirect_to sign_in_path, notice: "Password has been reset."
     else
-      render :edit
+      render :edit, status: :unprocessable_entity
     end
   end
 

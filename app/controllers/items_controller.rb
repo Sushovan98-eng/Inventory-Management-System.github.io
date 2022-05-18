@@ -19,7 +19,7 @@ class ItemsController < ApplicationController
         if @item.save
             redirect_to items_path, notice: "Item created successfully."
         else
-            render :new
+            render :new, status: :unprocessable_entity
         end
     end
 
@@ -40,7 +40,7 @@ class ItemsController < ApplicationController
             flash[:warning] = "Item updated successfully."
             @item.in_stock += (@item.total_stock - previous_quantity)
         else
-            render :edit
+            render :edit, status: :unprocessable_entity
         end
     end
 
@@ -62,7 +62,7 @@ class ItemsController < ApplicationController
             redirect_to items_path
             flash[:warning] = "Stock increased successfully."
         else
-            render :new_stock
+            render :new_stock, status: :unprocessable_entity
         end
     end
 
