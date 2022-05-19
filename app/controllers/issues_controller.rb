@@ -22,7 +22,7 @@ class IssuesController < ApplicationController
     @issue = Issue.new(user_id: current_user.id)
     @issue.assign_attributes(issue_params)
     if @issue.save
-      redirect_to @issue, flash: { success: "Issue reported successfully." }
+      redirect_to issues_path, flash: { notice: "Issue reported successfully." }
     else
       render :new, status: :unprocessable_entity
     end
