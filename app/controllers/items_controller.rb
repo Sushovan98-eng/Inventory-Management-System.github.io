@@ -68,7 +68,7 @@ class ItemsController < ApplicationController
         end
     end
 
-    def allotments
+    def item_allotments
         @allotments = Allotment.where(item_id: [params[:id]])
     end
 
