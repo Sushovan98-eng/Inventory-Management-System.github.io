@@ -1,7 +1,7 @@
 class CreateItems < ActiveRecord::Migration[7.0]
   def change
     create_table :items do |t|
-      t.string :name
+      t.string :name, uniqueness: {case_sensitive: false}
       t.references :brand, foreign_key: true
       t.references :category, foreign_key: true
       t.integer :in_stock

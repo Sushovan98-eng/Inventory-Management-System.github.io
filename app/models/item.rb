@@ -4,7 +4,7 @@ class Item < ApplicationRecord
     belongs_to :brand
     has_many :allotments, dependent: :destroy
     has_many :issues, dependent: :destroy
-    validates :name, presence: true, uniqueness: true
+    validates :name, presence: true, uniqueness: {case_sensitive: false}
     attribute :in_stock, default: 0
     attribute :total_stock, default: 0
     attribute :new_stock, default: 0

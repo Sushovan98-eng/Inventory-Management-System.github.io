@@ -37,7 +37,7 @@ class ItemsController < ApplicationController
             redirect_to edit_item_path(@item)
             flash[:warning] = "Currently more items are alloted than entered values."
         elsif @item.update(item_params)
-            redirect_to items_path
+            redirect_to @item
             flash[:warning] = "Item updated successfully." 
             @item.in_stock += @item.total_stock - previous_quantity  
             @item.update_attribute(:in_stock, @item.in_stock)         
@@ -68,8 +68,6 @@ class ItemsController < ApplicationController
         end
     end
 
-
-
     def allotments
         @allotments = Allotment.where(item_id: [params[:id]])
     end
@@ -82,6 +80,6 @@ class ItemsController < ApplicationController
 
     def get_item_by_id
         @item = Item.find(params[:id])
-      end
+    end
 end
 

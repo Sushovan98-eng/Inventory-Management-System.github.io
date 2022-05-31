@@ -54,8 +54,10 @@ Rails.application.routes.draw do
   resources :users do
     member do
       get :current_allotment
+      patch :make_admin_user
+      patch :remove_admin_user
     end
-end
+  end
   
 end
 

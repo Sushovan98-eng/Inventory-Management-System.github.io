@@ -12,16 +12,22 @@
               <th>User's name</th>
               <th>Email</th>
               <th>Mobile No.</th>
-              <th></th>
+              <th colspan="2"></th>
             </tr>
           </thead>
           <tbody> 
             <% @users.each do |user| %>
-                <tr>
+              <% next if current_user.admin?  && user==current_user %>
+                <tr>             
                   <td><%= user.name %></td>
                   <td><%= user.email %></td>
                   <td><%= user.mobile_no %></td>
                   <td><%= link_to "Allotments", current_allotment_user_path(user), class: "btn btn-info" %></td>
+                  <% if !user.admin? %>
+                  <td><%= link_to "Make admin", make_admin_user_user_path(user), method: :patch,data: {confirm: "Are you sure?" }, class: "btn btn-success" %></td>
+                  <% else %>
+                  <td><%= link_to "Remove admin", remove_admin_user_user_path(user), method: :patch,data: {confirm: "Are you sure?" }, class: "btn btn-danger" %></td>
+                  <% end %>                
                 </tr> 
             <% end %>                 
           </tbody>    

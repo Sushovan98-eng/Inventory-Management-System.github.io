@@ -19,25 +19,27 @@ class AllotmentsController < ApplicationController
       @non_admins = User.where(admin: false)
     end
   
+
     def create
       @allotment = Allotment.new(allotment_params)
       if Allotment.exists?(user_id: @allotment.user_id, item_id: @allotment.item_id, dealloted_at: nil)
-        render :new
-        flash[:warning] = "The specific user was recently alloted this product and has not been deallocated." 
+        redirect_to new_allotment_path
+        flash[:warning] = "The specific user was recently alloted this product and has not been deallocated."
       else
         @item = Item.find(@allotment.item_id)
         if @item.in_stock < @allotment.allotment_quantity.to_i
-          @non_admins = User.where(admin: false)
-          redirect_to new_allotment_path
-          flash[:warning] =  "Total stock of this item is NOT sufficient for this allotment." 
+           @non_admins = User.where(admin: false)
+           render :new
+           flash[:alert] = "Current stock of this item is not sufficient for this allotment."
         elsif @allotment.save
           successful_stock_update
+          flash[:notice] = "Allotment made successfully."
         else
           render :new, status: :unprocessable_entity
         end
       end
     end
-  
+
     def edit
     end
   
@@ -45,16 +47,16 @@ class AllotmentsController < ApplicationController
       @item = Item.find(@allotment.item_id)
       if @item.in_stock < update_quantity_params[:allotment_quantity].to_i
         redirect_to edit_allotment_path(@item)
-        flash[:warning] =  "Total stock of this item is NOT sufficient for this allotment." 
+        flash[:warning] =  "Current stock of this item is not sufficient for this allotment." 
       elsif @allotment.update(update_quantity_params)
         successful_stock_update
+        @allotment.update_attribute(:created_at, Time.now)
+        flash[:notice] = "Allotment updated successfully."
       else
         render :edit, status: :unprocessable_entity
       end
     end
 
-
-  
     def deallot
       @item = Item.find(@allotment.item_id)
       if @allotment.update_attribute(:dealloted_at, Time.now)
@@ -93,7 +95,7 @@ class AllotmentsController < ApplicationController
       def successful_stock_update
         @item.in_stock = @item.total_stock - @allotment.allotment_quantity.to_i
         @item.update_attribute(:in_stock, @item.in_stock)
-        redirect_to allotments_path, notice: "Allotment quantity updated successfully."
+        redirect_to allotments_path
         notify_for_shortage_item(@item)
-      end
+      end      
 end

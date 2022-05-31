@@ -1,6 +1,11 @@
 <% provide(:title, "Items Allotments") %>
 <%= render "shared/flash" %>
 <main class="page-body">
+  <div class ="d-flex justify-content-end">
+      <% if current_user.admin? %>
+        <%= link_to "Make New Allotment", new_allotment_path, class:"btn btn-primary" %>
+      <% end %>
+  </div>
   <% if !@allotments.blank? %>
   <h2>Allotment History</h2>
     <div class="container-fluid">

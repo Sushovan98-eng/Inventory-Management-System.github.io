@@ -1,13 +1,14 @@
 <% provide(:title, "Edit Allotment")%>
 <main class="page-body">
-  <div class="row">
+  <div class="row d-flex justify-content-center">
     <div class="col-md-10 col-md-offset-1">   
         <%= form_for @allotment do |f| %>
+
           <%= render 'shared/error', object: f.object %>
 
           <div class="form-group mb-3">
             <%= f.label :allotment_quantity %>
-            <%= f.number_field :allotment_quantity, min: 0, max: 100, class: 'form-control' %>
+            <%= f.number_field :allotment_quantity, class: 'form-control' %>
           </div>
 
           <%= f.submit "Update quantity" , class: "btn btn-primary" %>

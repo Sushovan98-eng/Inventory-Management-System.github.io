@@ -1,10 +1,13 @@
 <% provide(:title, "New Allotment") %>
 <main class="page-body">
+  
   <div class="row d-flex justify-content-center">
     <div class="col-md-7">    
         <h2>Add New Allotment</h2>
+        
         <%= form_for @allotment do |f| %>
-          <%= render 'shared/error', object: f.object %>
+          
+          <%= render "shared/error", object: f.object  %>          
 
           <div class="form-group mb-3">
             <%= f.label :user_id %>
@@ -25,10 +28,11 @@
 
           <div class="form-group mb-3">
             <%= f.label :allotment_quantity, "New Allotment quantity" %>
-            <%= f.number_field :allotment_quantity, min: 0, max: 1000, class: 'form-control' %>
+            <%= f.number_field :allotment_quantity, class: 'form-control' %>
           </div>
-
-          <%= f.submit "Allot Item to User" , class: "btn btn-primary" %>
+          <div>
+            <%= f.submit "Allot Item" , class: "btn btn-primary" %>
+          </div>
         <% end %>
     
     </div>

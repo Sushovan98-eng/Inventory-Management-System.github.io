@@ -1,7 +1,7 @@
 <% if object.errors.any? %>
     <div class="alert alert-danger text-center alert-dismissible">
         <% object.errors.full_messages.each do |message| %>
-            <div><%= message %></div>
+            <li><%= message %></li>
         <% end %>
             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
     </div>

@@ -7,6 +7,7 @@
     <%= render @item %>
   </div>
   <div class="card-body text-center">
-    <%= link_to "Edit", edit_item_path(@item),class:"btn btn-secondary" %>
+    <%= link_to "Edit", edit_item_path(@item),class:"btn btn-secondary" %> |
+    <%= link_to "Allotments", allotments_item_path(@item), class: "btn btn-secondary" %>
   </div>
 </div>

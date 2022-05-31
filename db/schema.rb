@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_05_13_082123) do
+ActiveRecord::Schema[7.0].define(version: 2022_05_27_113603) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -32,6 +32,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_05_13_082123) do
     t.string "manufacturer_office"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["name"], name: "index_brands_on_name", unique: true
   end
 
   create_table "categories", force: :cascade do |t|
@@ -39,6 +40,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_05_13_082123) do
     t.string "description"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["name"], name: "index_categories_on_name", unique: true
   end
 
   create_table "issues", force: :cascade do |t|
@@ -67,16 +69,18 @@ ActiveRecord::Schema[7.0].define(version: 2022_05_13_082123) do
     t.integer "new_stock"
     t.index ["brand_id"], name: "index_items_on_brand_id"
     t.index ["category_id"], name: "index_items_on_category_id"
+    t.index ["name"], name: "index_items_on_name", unique: true
   end
 
   create_table "users", force: :cascade do |t|
     t.string "name"
-    t.string "email"
-    t.string "password_digest"
+    t.string "email", null: false
+    t.string "password_digest", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.boolean "admin", default: false
-    t.string "mobile_no"
+    t.string "mobile_no", limit: 10, null: false
+    t.index ["email"], name: "index_users_on_email", unique: true
   end
 
   add_foreign_key "allotments", "items"

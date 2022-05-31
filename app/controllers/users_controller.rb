@@ -5,6 +5,8 @@ class UsersController < ApplicationController
     def index
       if current_user.admin?
         @users = User.all
+      else
+        redirect_to root_path, alert: "You are not authorized to view this page."
       end
     end
 
@@ -46,6 +48,18 @@ class UsersController < ApplicationController
 
     def current_allotment
       @allotments = Allotment.where({user_id: [params[:id]], dealloted_at: nil})
+    end
+
+    def make_admin_user 
+      @user = User.find(params[:id])
+      @user.update_attribute(:admin, true)
+      redirect_to users_path, notice: "User was successfully made an admin."
+    end
+
+    def remove_admin_user
+      @user = User.find(params[:id])
+      @user.update_attribute(:admin, false)
+      redirect_to users_path, notice: "User was successfully removed from admin."
     end
 
     private

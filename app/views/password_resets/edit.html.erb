@@ -1,22 +1,14 @@
 <h2>Reset your password</h2>
 
 <%= form_with model: @user, url: password_reset_edit_path(token: params[:token]) do |f| %>
-     
-      <% if f.object.errors.any? %>
-        <div class="alert alert-danger">
-            <% f.object.errors.full_messages.each do |msg| %>
-                <%= msg %>
-            <% end %>
-        </div>
-    <%end%>
-    
+    <%= render "shared/error", object: f.object  %>
      <div class="mb-3">
         <%= f.label :password %>
-        <%= f.password_field :password, placeholder: "Abcd12#", class: "form-control" %>
+        <%= f.password_field :password, class: "form-control" %>
     </div>
     <div class="mb-3">
         <%= f.label :password_confirmation %>
-        <%= f.password_field :password_confirmation, placeholder: "Abcd12#", class: "form-control" %>
+        <%= f.password_field :password_confirmation,  class: "form-control" %>
     </div>
 
     <div class="mb-3">

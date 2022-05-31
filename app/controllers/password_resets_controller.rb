@@ -9,13 +9,13 @@ class PasswordResetsController < ApplicationController
       #send an  email
       PasswordMailer.with(user: @user).reset.deliver_now
     end
-    redirect_to root_path, notice: "Email sent with password reset instructions.", status: :ok
+    redirect_to root_path, notice: "Email sent with password reset instructions."
   end  
 
   def edit
     @user = User.find_signed!(params[:token], purpose: "password_reset")
   rescue ActiveSupport::MessageVerifier::InvalidSignature
-    redirect_to root_path, alert: "Invalid password reset token."
+    redirect_to root_path, alert: "Invalid password reset token.", status: :unprocessable_entity
   end
 
   def update

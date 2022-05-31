@@ -3,13 +3,13 @@
 one:
   user_id: 1
   item_id: 1
-  description: MyText
+  issue_description: MyText
   solved_at: 2022-05-04 11:28:02
   feedback: MyText
 
 two:
   user_id: 1
   item_id: 1
-  description: MyText
+  issue_description: MyText
   solved_at: 2022-05-04 11:28:02
   feedback: MyText

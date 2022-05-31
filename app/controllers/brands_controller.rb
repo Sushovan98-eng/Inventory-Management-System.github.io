@@ -30,7 +30,7 @@ class BrandsController < ApplicationController
 
   def update
     if @brand.update(brand_params)
-      redirect_to brands_path, notice: "Brand updated successfully."
+      redirect_to @brand, notice: "Brand updated successfully."
     else
       render :edit, status: :unprocessable_entity
     end
