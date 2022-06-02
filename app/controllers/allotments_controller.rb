@@ -23,21 +23,11 @@ class AllotmentsController < ApplicationController
 
     def create
       @allotment = Allotment.new(allotment_params)
-      if Allotment.exists?(user_id: @allotment.user_id, item_id: @allotment.item_id, dealloted_at: nil)
-        redirect_to new_allotment_path
-        flash[:warning] = "The specific User was recently alloted this product and has not been deallocated."       
+      if @allotment.save
+        successful_stock_update
+        flash[:notice] = "Allotment made successfully."
       else
-        @item = Item.find(@allotment.item_id)
-        if @item.in_stock < @allotment.allotment_quantity.to_i
-           @non_admins = User.where(admin: false)
-            redirect_to new_allotment_path
-           flash[:alert] = "Current stock of this item is not sufficient for this allotment."
-        elsif @allotment.save
-          successful_stock_update
-          flash[:notice] = "Allotment made successfully."
-        else
-          render :new, status: :unprocessable_entity
-        end
+        render :new, status: :unprocessable_entity
       end
     end
 
@@ -94,6 +84,7 @@ class AllotmentsController < ApplicationController
       end
   
       def successful_stock_update
+        @item = Item.find(@allotment.item_id)
         @item.in_stock = @item.total_stock - @allotment.allotment_quantity.to_i
         @item.update_attribute(:in_stock, @item.in_stock)
         redirect_to allotments_path

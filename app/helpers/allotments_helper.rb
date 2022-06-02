@@ -15,6 +15,19 @@ module AllotmentsHelper
       end 
     end 
 
+    def item_quantity_validation
+      if item_id.present?
+          item = Item.find(item_id)
+          if item.in_stock < allotment_quantity.to_i
+          errors.add(:allotment_quantity, "is more than the available stock")
+          end
+      end
+    end
 
+    def allotment_exsist
+      if Allotment.where(user_id: self.user_id, item_id: self.item_id).exists?
+         errors.add(:this,"allotment already exists.")
+      end
+  end
 
 end

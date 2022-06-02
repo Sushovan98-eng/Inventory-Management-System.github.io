@@ -43,7 +43,6 @@ Rails.application.routes.draw do
       get :new_stock
       patch :increase_stock
       get :new_allotment
-      post :create_allotment
     end
   end
   

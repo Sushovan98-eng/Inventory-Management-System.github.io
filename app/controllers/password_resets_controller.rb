@@ -8,8 +8,11 @@ class PasswordResetsController < ApplicationController
     if @user.present?
       #send an  email
       PasswordMailer.with(user: @user).reset.deliver_now
+      redirect_to root_path, notice: "Email sent with password reset instructions."
+    else
+      redirect_to password_reset_path, alert: "Email not found."
     end
-    redirect_to root_path, notice: "Email sent with password reset instructions."
+    
   end  
 
   def edit

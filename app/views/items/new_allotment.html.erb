@@ -6,7 +6,7 @@
         <h2>Add New Allotment</h2>
           <%= render "shared/flash"%>
         
-        <%= form_for @allotment, data: {trubolink: true} do |f| %>
+        <%= form_for @allotment do |f| %>
           
           <%= render "shared/error", object: f.object  %>          
 
