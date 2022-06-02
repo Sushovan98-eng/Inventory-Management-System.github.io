@@ -87,8 +87,5 @@ class ItemsController < ApplicationController
         @item = Item.find(params[:id])
     end
 
-    def allotment_params
-        params.require(:allotment).permit(:user_id, :item_id, :allotment_quantity)
-    end
 end
 
