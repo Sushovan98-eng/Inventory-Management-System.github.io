@@ -3,7 +3,7 @@
     <div class="row dash_board justify-content-center">
         <div class="card " style="width: 18rem;">
             <section class="card-body">
-                <h5 class="card-title">Brand</h5>
+                <h5 class="card-title">Brands</h5>
                 <p class="card-text">
                     <%= "Total Number of Brand #{Brand.all.count}"%>
                 </p>
@@ -45,18 +45,7 @@
                 </p>
                 <%= link_to "View Details", issues_path, class: "btn btn-primary"%>
             </section>
-        </div>
-        <% if current_user.admin %>
-            <div class="card " style="width: 18rem;">
-                <section class="card-body">
-                    <h5 class="card-title">Users</h5>
-                    <p class="card-text">
-                        <%= "Total Number of Users #{User.all.count}"%>
-                    </p>
-                    <%= link_to "View Details", users_path, class: "btn btn-primary"%>
-                </section>
-            </div>
-        <% end %>    
+        </div>  
     </div>
 </main>
 

@@ -5,6 +5,8 @@ class AllotmentsController < ApplicationController
   before_action :get_item_by_item_id, only: [:deallot, :update]
   before_action :logged_in_user, only: [:index]
   before_action :admin_user, only: [:new, :edit, :update, :destroy, :deallot]
+  before_action :get_edit_allotment_by_id, only: [:edit, :update]
+  before_action :get_deallot, only: [:deallot]
 
     def index
       if current_user.admin?
@@ -18,18 +20,17 @@ class AllotmentsController < ApplicationController
       @allotment = Allotment.new
       @non_admins = User.where(admin: false)
     end
-  
 
     def create
       @allotment = Allotment.new(allotment_params)
       if Allotment.exists?(user_id: @allotment.user_id, item_id: @allotment.item_id, dealloted_at: nil)
         redirect_to new_allotment_path
-        flash[:warning] = "The specific user was recently alloted this product and has not been deallocated."
+        flash[:warning] = "The specific User was recently alloted this product and has not been deallocated."       
       else
         @item = Item.find(@allotment.item_id)
         if @item.in_stock < @allotment.allotment_quantity.to_i
            @non_admins = User.where(admin: false)
-           render :new
+            redirect_to new_allotment_path
            flash[:alert] = "Current stock of this item is not sufficient for this allotment."
         elsif @allotment.save
           successful_stock_update
@@ -97,5 +98,21 @@ class AllotmentsController < ApplicationController
         @item.update_attribute(:in_stock, @item.in_stock)
         redirect_to allotments_path
         notify_for_shortage_item(@item)
-      end      
+      end    
+      
+      def get_edit_allotment_by_id
+        @allotment = Allotment.find(params[:id])
+        if @allotment.dealloted_at != nil
+          redirect_to allotments_path
+          flash[:warning] = "This allotment has already been dealloted."
+        end
+      end
+
+      def get_deallot
+        @allotment = Allotment.find(params[:id])
+        if @allotment.dealloted_at != nil
+          redirect_to allotments_path
+          flash[:warning] = "This allotment has already been dealloted."
+        end
+      end
 end

@@ -5,6 +5,7 @@ Rails.application.routes.draw do
   root "app_interface#index"
 
   get "dashboard", to: "app_interface#dashboard"
+  get "admin_panel", to: "app_interface#admin_panel"
   
     
   get "sign_up", to: "users#new"
@@ -41,6 +42,8 @@ Rails.application.routes.draw do
       get :item_allotments
       get :new_stock
       patch :increase_stock
+      get :new_allotment
+      post :create_allotment
     end
   end
   

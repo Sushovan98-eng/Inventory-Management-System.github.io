@@ -1,0 +1,37 @@
+<% provide(:title, "Dashboard")%>   
+<main class="page-body">
+    <div class="row dash_board justify-content-center">
+        
+        <div class="card " style="width: 18rem;">
+            <section class="card-body">
+                <h5 class="card-title">Allotments</h5>
+                <p class="card-text">
+                    <%= "Number of current allotment #{get_allotment_count(current_user)}"%>
+                </p>
+                <%= link_to "Make New Allotment", new_allotment_path, class: "btn btn-primary"%>
+            </section>
+        </div>
+        <div class="card " style="width: 18rem;">
+            <section class="card-body">
+                <h5 class="card-title">Issues</h5>
+                <p class="card-text">
+                    <%= "Total Pending Issue #{unsolved_issues_count}. Check all pending issues and solve them."%>
+                </p>
+                <%= link_to "Solve Issues", issues_path, class: "btn btn-primary"%>
+            </section>
+        </div>
+        <% if current_user.admin %>
+            <div class="card " style="width: 18rem;">
+                <section class="card-body">
+                    <h5 class="card-title">Users</h5>
+                    <p class="card-text">
+                        <%= "Total Number of Users #{User.all.count}. View all users details."%>
+                    </p>
+                    <%= link_to "View Details", users_path, class: "btn btn-primary"%>
+                </section>
+            </div>
+        <% end %>    
+    </div>
+</main>
+
+

@@ -72,6 +72,31 @@ class ItemsController < ApplicationController
         @allotments = Allotment.where(item_id: [params[:id]])
     end
 
+    def new_allotment
+        @item = Item.find(params[:id])
+        @allotment = Allotment.new
+    end
+
+    def create_allotment
+        @allotment = Allotment.new(allotment_params)
+        if Allotment.exists?(user_id: @allotment.user_id, item_id: @allotment.item_id, dealloted_at: nil)
+          redirect_to new_allotment_item_path
+          flash[:warning] = "The specific user was recently alloted this product and has not been deallocated."
+        else
+          @item = Item.find(@allotment.item_id)
+          if @item.in_stock < @allotment.allotment_quantity.to_i
+             @non_admins = User.where(admin: false)
+              redirect_to new_allotment_item_path
+             flash[:alert] = "Current stock of this item is not sufficient for this allotment."
+          elsif @allotment.save
+            successful_stock_update
+            flash[:notice] = "Allotment made successfully."
+          else
+            render "new_allotment", status: :unprocessable_entity
+          end
+        end
+    end
+
     private
 
     def item_params
@@ -80,6 +105,17 @@ class ItemsController < ApplicationController
 
     def get_item_by_id
         @item = Item.find(params[:id])
+    end
+
+    def successful_stock_update
+        @item.in_stock = @item.total_stock - @allotment.allotment_quantity.to_i
+        @item.update_attribute(:in_stock, @item.in_stock)
+        redirect_to item_allotments_item_path
+        notify_for_shortage_item(@item)
+    end
+
+    def allotment_params
+        params.require(:allotment).permit(:user_id, :item_id, :allotment_quantity)
     end
 end
 

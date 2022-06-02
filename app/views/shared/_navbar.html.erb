@@ -10,6 +10,11 @@
         <li class="nav-item">
         <%= link_to "Dashboard", dashboard_path,class:"nav-link" %>
         </li>
+        <% if current_user.admin? %>
+          <li class="nav-item">
+            <%= link_to "Admin Panel", admin_panel_path,class:"nav-link" %>
+          </li>
+        <% end %>
         <li class="nav-item">
         <%= link_to "Brands", brands_path, class:"nav-link" %>
         </li>
