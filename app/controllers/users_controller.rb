@@ -1,5 +1,7 @@
 class UsersController < ApplicationController
   include SessionsHelper
+  before_action :logged_in_user, only: [:edit, :update, :destroy, :index]
+  before_action :admin_user, only: [:make_admin_user, :remove_admin_user,:index]
   
   
     def index
