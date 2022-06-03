@@ -11,7 +11,7 @@
 
         <div class="form-group mb-3">
           <%= f.label :item_id %>
-          <%= f.collection_select(:item_id, @items, :id, :name, include_blank: '--select item--') %>
+          <%= f.collection_select(:item_id, Item.where(id: [Allotment.select(:item_id).where(user_id: current_user.id, dealloted_at: nil)]), :id, :name, include_blank: '--select item--') %>
         </div>
 
         <div class="form-group mb-3">

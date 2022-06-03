@@ -23,7 +23,10 @@ class AllotmentsController < ApplicationController
 
     def create
       @allotment = Allotment.new(allotment_params)
-      if @allotment.save
+      if Allotment.exists?(user_id: @allotment.user_id, item_id: @allotment.item_id, dealloted_at: nil)
+        flash[:warning] =  "This Item is already alloted to this user."
+        redirect_to new_allotment_path
+      elsif @allotment.save
         successful_stock_update
         flash[:notice] = "Allotment made successfully."
       else

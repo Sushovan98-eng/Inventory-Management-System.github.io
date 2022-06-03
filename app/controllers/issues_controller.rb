@@ -15,7 +15,6 @@ class IssuesController < ApplicationController
 
   def new
     @issue = Issue.new
-    @items = Item.where(id: [Allotment.select(:item_id).where(user_id: current_user.id, dealloted_at: nil)])
   end
 
   def create

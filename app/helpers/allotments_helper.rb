@@ -23,11 +23,4 @@ module AllotmentsHelper
           end
       end
     end
-
-    def allotment_exsist
-      if Allotment.where(user_id: self.user_id, item_id: self.item_id).exists?
-         errors.add(:this,"allotment already exists.")
-      end
-  end
-
 end
