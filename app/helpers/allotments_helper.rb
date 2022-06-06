@@ -19,7 +19,7 @@ module AllotmentsHelper
       if item_id.present?
         item = Item.find(item_id)
           if Allotment.where(user_id: self.user_id, item_id: self.item_id, dealloted_at: nil).exists?
-            previous_quantity = Allotment.where(user_id: self.user_id, item_id: self.item_id).first.allotment_quantity
+            previous_quantity = Allotment.where(user_id: self.user_id, item_id: self.item_id).last.allotment_quantity
             total_stock = item.in_stock + previous_quantity
             if allotment_quantity.to_i > previous_quantity && total_stock < allotment_quantity.to_i
               errors.add(:allotment_quantity, " is not sufficient for this allotment.")
