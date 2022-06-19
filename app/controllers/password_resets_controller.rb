@@ -25,7 +25,6 @@ class PasswordResetsController < ApplicationController
   def update
     @user = User.find_signed!(params[:token], purpose: "password_reset")
     if @user.update(password_params)
-      params[:user].delete(:token)
       redirect_to sign_in_path, notice: "Password has been reset."
     else
       render :edit, status: :unprocessable_entity
