@@ -1,6 +1,5 @@
 class PasswordResetsController < ApplicationController
   before_action :require_no_user
-  before_action :validate_token, only: [:edit, :update]
   
   def new 
   end
@@ -26,6 +25,7 @@ class PasswordResetsController < ApplicationController
   def update
     @user = User.find_signed!(params[:token], purpose: "password_reset")
     if @user.update(password_params)
+      params[:user].delete(:token)
       redirect_to sign_in_path, notice: "Password has been reset."
     else
       render :edit, status: :unprocessable_entity
@@ -40,12 +40,6 @@ class PasswordResetsController < ApplicationController
   def require_no_user
     if current_user
       redirect_to root_path, alert: "You are already logged in."
-    end
-  end
-
-  def validate_token
-    if !User.find_signed(params[:token], purpose: "password_reset")
-      redirect_to root_path, alert: "Invalid password reset token."
     end
   end
 end
