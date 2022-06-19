@@ -1,9 +1,9 @@
 <div class="row d-flex justify-content-center">
   <div class="col-md-6">
     <%= form_for @brand do |f| %>
-
+        
         <%= render "shared/error", object: f.object  %>
-
+      
       <div class="mb-3">
         <%= f.label :name %>
         <%= f.text_field :name, class: 'form-control' %>
@@ -26,6 +26,7 @@
       <div class="mb-3">
         <%= f.submit "Submit" , class: "btn btn-primary" %>
       </div>
+      <%= hidden_field_tag :previous_request, request.referer %>
     <% end %>
   </div>
 </div>

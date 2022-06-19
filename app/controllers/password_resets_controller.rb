@@ -1,10 +1,12 @@
 class PasswordResetsController < ApplicationController
+  before_action :require_no_user
+  before_action :validate_token, only: [:edit, :update]
   
   def new 
   end
 
   def create
-    @user = User.find_by(email: params[:email])
+    @user = User.find_by(email: params[:email].downcase)
     if @user.present?
       #send an  email
       PasswordMailer.with(user: @user).reset.deliver_now
@@ -35,4 +37,15 @@ class PasswordResetsController < ApplicationController
     params.require(:user).permit(:password, :password_confirmation)
   end
 
+  def require_no_user
+    if current_user
+      redirect_to root_path, alert: "You are already logged in."
+    end
+  end
+
+  def validate_token
+    if !User.find_signed(params[:token], purpose: "password_reset")
+      redirect_to root_path, alert: "Invalid password reset token."
+    end
+  end
 end
