@@ -23,10 +23,11 @@
         <%= f.label :manufacturer_office %>
         <%= f.text_field :manufacturer_office, class: 'form-control' %>
       </div>
+      
       <div class="mb-3">
         <%= f.submit "Submit" , class: "btn btn-primary" %>
       </div>
-      <%= hidden_field_tag :previous_request, request.referer %>
+
     <% end %>
   </div>
 </div>
