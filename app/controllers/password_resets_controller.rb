@@ -9,7 +9,7 @@ class PasswordResetsController < ApplicationController
     if @user.present?
       #send an  email @allotment.update_attribute(:created_at, Time.now)
       @@token = generate_token
-      PasswordMailer.with(user: @user, token: @token).reset.deliver_now
+      PasswordMailer.with(user: @user, token: @@token).reset.deliver_now
       redirect_to root_path, notice: "Email sent with password reset instructions."
     else
       redirect_to password_reset_path, alert: "Email not found."
