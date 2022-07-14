@@ -34,7 +34,10 @@ class PasswordResetsController < ApplicationController
 
   def update
     @user = User.find_signed!(@@token, purpose: "password_reset")
-    if @user.update(password_params)
+    if password_blank
+      flash.now[:warning] =  "Please enter a password and confirm it."
+      render :edit, status: :unprocessable_entity
+    elsif @user.update(password_params)
       redirect_to sign_in_path, notice: "Password has been reset."
       @@token = nil
       @@reset = false
@@ -46,6 +49,14 @@ class PasswordResetsController < ApplicationController
   private
   def password_params
     params.require(:user).permit(:password, :password_confirmation)
+  end
+
+  def password_blank
+    if params[:user][:password].blank? || params[:user][:password_confirmation].blank?
+      return true
+    else
+      return false
+    end
   end
 
   def require_no_user
