@@ -3,7 +3,6 @@ class UsersController < ApplicationController
   before_action :logged_in_user, only: [:edit, :update, :destroy, :index]
   before_action :admin_user, only: [:make_admin_user, :remove_admin_user,:index]
   
-  
     def index
       if current_user.admin?
         @users = User.all
@@ -26,17 +25,35 @@ class UsersController < ApplicationController
       end
     end
 
+    def password_edit
+        @user = Current.user
+    end
+
+    def password_update
+        @user = Current.user
+        if user_password_params[:password].blank? || user_password_params[:password_confirmation].blank?
+            flash.now[:warning] =  "Please enter a password and confirm it."
+            render :password_edit, status: :unprocessable_entity
+        elsif @user.update(user_password_params)
+            redirect_to @user, notice: "Password  updated successfully."
+        else
+            render :password_edit, status: :unprocessable_entity
+        end
+    end
+
     def edit
         @user = Current.user
     end
 
     def update
-        if Current.user.update(user_edit_params)
-            redirect_to root_path, notice: "Password was successfully updated."
+        @user = Current.user
+        if @user.update(user_edit_params)
+            redirect_to user_path, notice: "Profile updated successfully."
         else
             render :edit, status: :unprocessable_entity
         end
     end
+
 
     def show   
       @user = User.find(params[:id])   
@@ -69,8 +86,11 @@ class UsersController < ApplicationController
         params.require(:user).permit(:name, :email, :mobile_no, :password, :password_confirmation)
       end
 
-      def user_edit_params
+      def user_password_params
           params.require(:user).permit(:password, :password_confirmation)
       end
       
+      def user_edit_params
+          params.require(:user).permit(:name, :email, :mobile_no)
+      end
 end

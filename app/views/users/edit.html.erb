@@ -1,24 +1,32 @@
-<% provide(:title, "Update Password")%>
-<h2>Update Your Password</h2>
- <div class="row d-flex justify-content-center">
-  <div class="col-md-6">
-    <main class="page-body"> 
-        <%= form_for Current.user, url: edit_password_path do |f| %>
+<% provide(:title, "Edit Profile")%>
+<main class="page-body">
+    <h1>Edit Profile</h1>
+    <div class="row d-flex justify-content-center">
+    <div class="col-md-6">
+        
+        <%= form_for @user, url: user_path(@user) do |f| %>
 
             <%= render "shared/error", object: f.object  %>
-           
-            <div class="mb-3">
-                <%= f.label :password %>
-                <%= f.password_field :password, class: "form-control" %>
+
+            <div class="form-group mb-3">
+                <%= f.label :name %>
+                <%= f.text_field :name, class: "form-control" %>
             </div>
-            <div class="mb-3">
-                <%= f.label :password_confirmation %>
-                <%= f.password_field :password_confirmation, class: "form-control" %>
+            
+            <div class="form-group mb-3">
+                <%= f.label :email %>
+                <%= f.email_field :email, class: "form-control" %>
             </div>
-            <div class="mb-3 d-flex justify-content-center">
-                <%= f.submit "Update Password", class: "btn btn-primary" %>
+            <div class="form-group mb-3">
+                <%= f.label :mobile_no %>
+                <%= f.telephone_field :mobile_no, class: "form-control" %>
+            </div>
+
+            <div class="form-group mb-3 d-flex justify-content-center">
+                <%= f.submit "Submit", class: "btn btn-primary" %>
             </div>
         <%end%>
-    </main>
-  </div>
-</div>
+    
+    </div>
+    </div>
+</main>

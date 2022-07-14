@@ -1,13 +1,16 @@
 class PasswordResetsController < ApplicationController
   before_action :require_no_user
   
+  @@token = nil
+  @@reset = true
+
   def new 
   end
 
   def create
     @user = User.find_by(email: params[:email].downcase)
     if @user.present?
-      #send an  email @allotment.update_attribute(:created_at, Time.now)
+      #send an  email with the reset link
       @@token = generate_token
       PasswordMailer.with(user: @user, token: @@token).reset.deliver_now
       redirect_to root_path, notice: "Email sent with password reset instructions."
@@ -18,9 +21,15 @@ class PasswordResetsController < ApplicationController
   end  
 
   def edit
-    @user = User.find_signed!(@@token, purpose: "password_reset")
-  rescue ActiveSupport::MessageVerifier::InvalidSignature
-    redirect_to root_path, alert: "Invalid password reset token.", status: :unprocessable_entity
+    begin
+      if @@token.nil? && @@reset==false
+        redirect_to sign_in_path, alert: "You have already reset your password. You can log in using your new password or generate a new password reset link"
+      else
+        @user = User.find_signed!(@@token, purpose: "password_reset")
+      end
+    rescue
+      redirect_to root_path, alert: "Invalid link."
+    end
   end
 
   def update
@@ -28,6 +37,7 @@ class PasswordResetsController < ApplicationController
     if @user.update(password_params)
       redirect_to sign_in_path, notice: "Password has been reset."
       @@token = nil
+      @@reset = false
     else
       render :edit, status: :unprocessable_entity
     end
