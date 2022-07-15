@@ -23,7 +23,7 @@ class PasswordResetsController < ApplicationController
   def edit
     begin
       if @@token.nil? && @@reset==false
-        redirect_to sign_in_path, alert: "You have already reset your password. You can log in using your new password or generate a new password reset link"
+        redirect_to sign_in_path, alert: "You have already reset your password. You can log in using your new password or generate a new password reset link."
       else
         @user = User.find_signed!(@@token, purpose: "password_reset")
       end
