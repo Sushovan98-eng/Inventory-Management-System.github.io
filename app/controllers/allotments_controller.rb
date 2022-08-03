@@ -5,7 +5,6 @@ class AllotmentsController < ApplicationController
   before_action :get_item_by_item_id, only: [:deallot, :update]
   before_action :logged_in_user, only: [:index]
   before_action :admin_user, only: [:new, :edit, :update, :destroy, :deallot]
-  before_action :get_edit_allotment_by_id, only: [:edit, :update]
   before_action :get_deallot, only: [:deallot]
 
     def index
@@ -34,18 +33,6 @@ class AllotmentsController < ApplicationController
       end
     end
 
-    def edit
-    end
-  
-    def update
-      if @allotment.update(update_quantity_params)
-        successful_stock_update
-        @allotment.update_attribute(:created_at, Time.now)
-        flash[:notice] = "Allotment updated successfully."
-      else
-        render :edit, status: :unprocessable_entity
-      end
-    end
 
     def deallot
       @item = Item.find(@allotment.item_id)
@@ -70,10 +57,6 @@ class AllotmentsController < ApplicationController
         params.require(:allotment).permit(:user_id, :item_id, :allotment_quantity)
       end
   
-      def update_quantity_params
-        params.require(:allotment).permit(:allotment_quantity)
-      end
-  
       def get_allotment_by_id
         @allotment = Allotment.find(params[:id])
       end
@@ -84,20 +67,12 @@ class AllotmentsController < ApplicationController
   
       def successful_stock_update
         @item = Item.find(@allotment.item_id)
-        @item.in_stock = @item.total_stock - @allotment.allotment_quantity.to_i
+        @item.in_stock = @item.in_stock - @allotment.allotment_quantity.to_i
         @item.update_attribute(:in_stock, @item.in_stock)
         redirect_to allotments_path
         notify_for_shortage_item(@item)
       end    
-      
-      def get_edit_allotment_by_id
-        @allotment = Allotment.find(params[:id])
-        if @allotment.dealloted_at != nil
-          redirect_to allotments_path
-          flash[:warning] = "This allotment has already been dealloted."
-        end
-      end
-
+    
       def get_deallot
         @allotment = Allotment.find(params[:id])
         if @allotment.dealloted_at != nil

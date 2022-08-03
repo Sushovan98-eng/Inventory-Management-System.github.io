@@ -1,7 +1,7 @@
 class CategoriesController < ApplicationController
   before_action :logged_in_user, only: [:index, :new, :create, :edit, :update, :destroy,:show]
   before_action :get_category_by_id, only: [:edit, :show, :update]
-  #before_action :admin_user, only: [:new, :create, :edit, :update, :destroy]
+  before_action :admin_user, only: [:new, :create, :edit, :update, :destroy]
   
     def index
       @categories = Category.all

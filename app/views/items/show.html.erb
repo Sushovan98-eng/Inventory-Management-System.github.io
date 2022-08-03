@@ -6,8 +6,10 @@
   <div class="card-header">
     <%= render @item %>
   </div>
+<% if current_user.admin? %>
   <div class="card-body text-center">
     <%= link_to "Edit", edit_item_path(@item),class:"btn btn-secondary" %> |
     <%= link_to "Allotments", item_allotments_item_path(@item), class: "btn btn-secondary" %>
   </div>
+<% end %>
 </div>

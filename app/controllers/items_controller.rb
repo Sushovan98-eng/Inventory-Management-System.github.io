@@ -2,7 +2,7 @@ class ItemsController < ApplicationController
     include ApplicationHelper
     before_action :logged_in_user, only: [:index, :new, :create, :edit, :update, :show, :destroy]
     before_action :get_item_by_id, only: [:edit, :update, :show]
-    #before_action :admin_user, only: [:destroy, :new, :create, :edit, :update]
+    before_action :admin_user, only: [:destroy, :new, :create, :edit, :update]
 
 
     def index
@@ -81,7 +81,7 @@ class ItemsController < ApplicationController
     private
 
     def item_params
-        params.require(:item).permit(:name, :category_id, :brand_id, :price, :quantity, :price, :total_stock, :minimum_required_stock, :new_stock)
+        params.require(:item).permit(:name, :category_id, :brand_id, :price, :total_stock, :minimum_required_stock, :new_stock)
     end
 
     def get_item_by_id

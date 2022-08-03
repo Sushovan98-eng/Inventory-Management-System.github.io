@@ -49,25 +49,9 @@
                 </td>
                 <% if current_user.admin? %>
                 <td>
-
                   <% if allotment.dealloted_at.blank? %>
-                    <div class=" dropdown">
-                      <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
-                        Options
-                      </a>
-                      <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                        <li>
-                            <%= link_to "Update", edit_allotment_path(allotment), class: "btn btn-link" %>
-                        </li>
-                        <li>
-                            <%= link_to "Deallot", deallot_allotment_path(allotment), class: "btn btn-link" %>
-                        </li>
-                        <li>
-                        </li>                    
-                      </ul>
-                    </div>
-                  <% end %>
-                      
+                    <%= link_to "Deallot", deallot_allotment_path(allotment), class: "btn btn-warning" %>
+                  <% end %>                      
                 </td>
                 <% end %>
               </tr>

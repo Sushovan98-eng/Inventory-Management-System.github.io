@@ -7,8 +7,10 @@
     <div class="card-header">
       <%= render @brand %>
     </div>
-    <div class="card-body text-center">
-    <%= link_to "Edit", edit_brand_path(@brand),class:"btn btn-secondary" %>
-    </div>
+    <% if current_user.admin? %>
+      <div class="card-body text-center">
+        <%= link_to "Edit", edit_brand_path(@brand),class:"btn btn-secondary" %> 
+      </div>
+    <% end %> 
   </div>
 </main>

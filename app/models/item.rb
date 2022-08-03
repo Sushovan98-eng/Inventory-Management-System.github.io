@@ -12,7 +12,7 @@ class Item < ApplicationRecord
   
     def item_display_name
       @brand_name = brand_id.nil? ? "<Brand N/A>" : Brand.find(brand_id).name
-      "Brand:#{@brand_name} Name:#{name} Quantity:#{quantity} Currentlyly in stock : #{in_stock}"
+      "Brand:#{@brand_name} Name:#{name} Currently in stock : #{in_stock}"
     end
 
 end

@@ -7,7 +7,6 @@ one:
   in_stock: 1
   price: 9.99
   minimum_required_stock: 1
-  quantity: MyString
   total_stock: 1
 
 two:
@@ -17,5 +16,4 @@ two:
   in_stock: 1
   price: 9.99
   minimum_required_stock: 1
-  quantity: MyString
   total_stock: 1
