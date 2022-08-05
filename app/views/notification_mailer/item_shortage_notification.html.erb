@@ -2,12 +2,12 @@
   Hello <%= @user.name %>,
 </p>
 
-<% if @item.in_stock == @item.minimum_required_stock %>
-  <p class="red_notification">
+<% if @item.in_stock <= @item.minimum_required_stock && @item.in_stock >= @item.minimum_required_stock*0.5%>
+  <p style="color:rgb(246, 184, 27);">
     The current stock of the item, <strong> <%= item_display_name @item %> </strong> is <strong> <%= @item.in_stock %> </strong> which is <%= (@item.in_stock == @item.minimum_required_stock) ? "equal to" : "below" %> the minimum required stock of the item (<strong> <%= @item.minimum_required_stock %> </strong>). You are requested to check the stock of the item and take the action.
   </p>
-<% elsif @item.in_stock < @item.minimum_required_stock %>
-  <p class="maroon_notification">
+<% elsif @item.in_stock < @item.minimum_required_stock*0.5 %>
+  <p style="color:red;">
       The current stock of the item, <strong> <%= item_display_name @item %> </strong> is <strong> <%= @item.in_stock %> </strong> which is <%= (@item.in_stock == @item.minimum_required_stock) ? "equal to" : "below" %> the minimum required stock of the item (<strong> <%= @item.minimum_required_stock %> </strong>). You are requested to check the stock of the item and take the action.
     </p>
   <p>
