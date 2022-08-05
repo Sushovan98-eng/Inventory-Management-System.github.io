@@ -92,7 +92,7 @@ Rails.application.configure do
   config.active_record.dump_schema_after_migration = false
 
   # ActionMailer Config
-  config.action_mailer.raise_delivery_errors = true
+   config.action_mailer.raise_delivery_errors = true
   config.action_mailer.default_url_options = { :host => 'herokuapp.com' , :protocol => 'https'}
   config.action_mailer.delivery_method = :smtp
  
@@ -100,8 +100,8 @@ Rails.application.configure do
     address:              'smtp.gmail.com',
     port:                 587,
     domain:               'herokuapp.com',
-    user_name:            "",
-    password:             "",
+    user_name:            Rails.application.credentials.dig(:google_smtp, :email),
+    password:             Rails.application.credentials.dig(:google_smtp, :password),
     authentication:       'plain',
     enable_starttls_auto: true,
   }
