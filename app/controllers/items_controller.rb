@@ -70,7 +70,7 @@ class ItemsController < ApplicationController
     end
 
     def item_allotments
-        @allotments = Allotment.where(item_id: [params[:id]])
+        @allotments = Allotment.order(:created_at).reverse_order.where(item_id: params[:id]).where(dealloted_at: nil)+(Allotment.order(:dealloted_at).reverse_order.where(item_id: params[:id]).where.not(dealloted_at: nil))
     end
 
     def new_allotment
