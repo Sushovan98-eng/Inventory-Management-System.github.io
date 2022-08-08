@@ -21,7 +21,7 @@ class BrandsController < ApplicationController
   end
 
   def index
-    @brands = Brand.all
+    @brands = Brand.order(:name)
   end
   
 

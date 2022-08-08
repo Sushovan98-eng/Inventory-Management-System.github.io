@@ -4,7 +4,7 @@ class CategoriesController < ApplicationController
   before_action :admin_user, only: [:new, :create, :edit, :update, :destroy]
   
     def index
-      @categories = Category.all
+      @categories = Category.order(:name)
     end
   
     def new
