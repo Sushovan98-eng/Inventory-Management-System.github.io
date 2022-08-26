@@ -40,7 +40,7 @@
             </td>
 
             <td>
-              <%= issue.created_at %>
+              <%= issue.created_at.strftime("%d-%m-%Y %H:%M:%S") %>
             </td>
 
             
@@ -55,7 +55,7 @@
               <% if issue.solved_at.nil? %>
                 No
               <% else %>
-                Solved at : <%= issue.solved_at %>
+                Solved at : <%= issue.solved_at.strftime("%d-%m-%Y %H:%M:%S") %>
               <% end %>
             </td>
             <td><%= link_to "Details", issue, class: "btn btn-info" %></td>

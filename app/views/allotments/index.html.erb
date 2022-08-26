@@ -42,7 +42,7 @@
                   <%= allotment.allotment_quantity %>
                 </td>
                 <td>
-                  <%= allotment.created_at %>
+                  <%= allotment.created_at.strftime("%d-%m-%Y %H:%M:%S") %>
                 </td>
                 <td>
                   <%= get_deallotment_status allotment %>

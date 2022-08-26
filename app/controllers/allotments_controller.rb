@@ -9,9 +9,9 @@ class AllotmentsController < ApplicationController
 
     def index
       if current_user.admin?
-        @allotments = Allotment.order(created_at: :asc).where(dealloted_at: nil)+(Allotment.order(dealloted_at: :desc).where.not(dealloted_at: nil))
+        @allotments = Allotment.admin_allotments_order
       else
-        @allotments = Allotment.order(created_at: :asc).where(dealloted_at: nil, user_id: current_user.id)+(Allotment.order(dealloted_at: :desc).where(user_id: current_user.id).where.not(dealloted_at: nil))
+        @allotments = Allotment.user_allotments_order
       end
     end
     

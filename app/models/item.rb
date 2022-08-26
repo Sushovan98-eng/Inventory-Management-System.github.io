@@ -9,6 +9,8 @@ class Item < ApplicationRecord
     attribute :total_stock, default: 0
     attribute :new_stock, default: 0
     attribute :minimum_required_stock, default: 0
+
+    scope :ordered_by_name, -> { order(:name) }
   
     def item_display_name
       @brand_name = brand_id.nil? ? "<Brand N/A>" : Brand.find(brand_id).name

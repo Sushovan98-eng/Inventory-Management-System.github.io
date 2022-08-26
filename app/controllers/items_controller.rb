@@ -6,7 +6,7 @@ class ItemsController < ApplicationController
 
 
     def index
-        @items = Item.order(:name)
+        @items = Item.ordered_by_name
     end
 
     def new
@@ -77,6 +77,10 @@ class ItemsController < ApplicationController
         @item = Item.find(params[:id])
         @allotment = Allotment.new
     end
+
+    def search
+        @searched_item = search_params[:search]
+        @items = Item.search_name(@searched_item)
 
     private
 

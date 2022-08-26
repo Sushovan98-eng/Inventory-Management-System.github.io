@@ -3,7 +3,7 @@ module AllotmentsHelper
       if allotment.dealloted_at.nil?
         "Currently alloted."
       else
-        allotment.dealloted_at
+        allotment.dealloted_at.strftime("%d-%m-%Y %H:%M:%S")
       end
     end
 

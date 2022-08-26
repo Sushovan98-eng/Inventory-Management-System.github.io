@@ -21,7 +21,7 @@ class BrandsController < ApplicationController
   end
 
   def index
-    @brands = Brand.order(:name)
+    @brands = Brand.ordered_by_name
   end
   
 

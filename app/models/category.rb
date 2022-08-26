@@ -3,4 +3,6 @@ class Category < ApplicationRecord
     
     validates :name, presence: true, uniqueness: {case_sensitive: false}, length: { maximum: 30 }
     validates :description, presence: true, length: { maximum: 150 }
+
+    scope :ordered_by_name, -> { order(:name) }
 end

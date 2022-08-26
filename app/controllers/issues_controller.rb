@@ -7,9 +7,9 @@ class IssuesController < ApplicationController
   
   def index
     if current_user.admin?
-      @issues = Issue.order(created_at: :asc).where(solved_at: nil)+(Issue.order(solved_at: :desc).where.not(solved_at: nil))
+      @issues = Issue.admin_issues_order
     else
-      @issues = Issue.order(created_at: :asc).where(solved_at: nil, user_id: current_user.id)+(Issue.order(solved_at: :desc).where(user_id: current_user.id).where.not(solved_at: nil))
+      @issues = Issue.user_issues_order
     end
   end
 
