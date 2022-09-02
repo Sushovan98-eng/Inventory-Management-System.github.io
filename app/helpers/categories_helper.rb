@@ -1,6 +1,9 @@
+# frozen_string_literal: true
+
 module CategoriesHelper
-    def get_category_name_by_id(id)
-        return "<Brand N/A>" if id.nil?
-        Category.find(id).name
-      end 
+  def get_category_name_by_id(id)
+    return '<Brand N/A>' if id.nil?
+
+    Category.find(id).name
+  end
 end

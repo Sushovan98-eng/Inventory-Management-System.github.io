@@ -2,11 +2,25 @@
 
 <main class="page-body allotment">
 <%= render "shared/flash" %>
-  <div class ="d-flex justify-content-end">
+  <div class ="d-flex justify-content-between">
+    <div>
+      <%= search_form_for @q do |f| %> 
+        <div class="input-group">
+          <div class="form-outline">
+            <%= f.text_field :item_name_cont, class: 'form-control', placeholder: 'search by Item name' %> 
+          </div>
+          <%= f.submit 'apply', class: 'btn  btn-sm btn-secondary' %>
+        </div>
+      <%end%>
+    </div>
+
+    <div>
       <% if current_user.admin? %>
       <%= link_to "Make New Allotment", new_allotment_path, class:"btn btn-primary" %>
       <% end %>
+    </div> 
   </div>
+
   <% if !@allotments.blank? %>
     <h2>Allotment History</h2>
       <div class="container-fluid">
@@ -16,8 +30,8 @@
               <th>User</th>
               <th>Item</th>
               <th>Allotment quantity</th>
-              <th>Allotted at</th>
-              <th>Deallocated at</th>
+              <th><%= sort_link(@q, :created_at, 'Allotted at', class: "text-white") %></th>
+              <th><%= sort_link(@q, :dealloted_at, 'Deallocated at', class: "text-white") %></th>
               <% if current_user.admin? %>
                 <th></th>
               <% end %>

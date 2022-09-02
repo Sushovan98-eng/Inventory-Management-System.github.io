@@ -2,22 +2,49 @@
 
 <main class="page-body">
 <%= render "shared/flash" %>
-<% if current_user.admin? %>
-  <div class="d-flex justify-content-end">
-    <%= link_to "Add Item", new_item_path, class:"btn btn-primary" %>
+
+  <div class="d-flex justify-content-between">
+    <div>
+      <%= search_form_for @q do |f| %> 
+        <div class="input-group">
+          <div class="form-outline">
+            <%= f.text_field :name_cont, class: 'form-control', placeholder: 'search by name' %> 
+          </div>
+          <%= f.submit class: 'btn btn-secondary' %>
+        </div>
+      <%end%>
+    </div>
+    <div>
+      <%= search_form_for @q do |f| %> 
+        <div class="input-group">
+          <div class="form-outline">
+          <%= f.collection_select(:brand_name_cont, Brand.all,  :name, :name, include_blank: '--select brand--', class: 'form-control') %> 
+          </div>
+          <%= f.submit 'apply', class: 'btn  btn-sm btn-secondary' %>
+        </div>
+      <%end%>
+    </div>
+
+    <div>
+      <% if current_user.admin? %>
+        <%= link_to "Add Item", new_item_path, class:"btn btn-primary" %>
+      <% end %>
+    </div>    
   </div>
-<% end %>
+
+
+
     <h2>Item List</h2>
     <div id="items">
      <% if !@items.empty? %>
         <table class="table table-striped table-hover table-bordered text-center">
           <thead class="table-dark">
             <tr>
-              <th>Item name</th>
+              <th><%= sort_link(@q, :name, 'Item Name', class: "text-white") %></th>
               <th>Brand Name</th>
-              <th>Current Stock</th>
-              <th>Total Stock</th>
-              <th>Unit Price</th>
+              <th><%= sort_link(@q, :in_stock, 'Current Scock', class: "text-white") %></th>
+              <th><%= sort_link(@q, :total_stock, 'Total Scock', class: "text-white") %></th>
+              <th><%= sort_link(@q, :price, 'Unit Price', class: "text-white") %></th>
 
               <% if current_user.admin? %>
                 <th colspan="3"></th>

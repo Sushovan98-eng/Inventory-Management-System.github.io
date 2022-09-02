@@ -1,11 +1,9 @@
+# frozen_string_literal: true
+
 class BrandsController < ApplicationController
-
-  before_action :logged_in_user, only: [:index, :new, :create, :edit, :update, :destroy,:show]
-  before_action :get_brand_by_id, only: [:edit, :update, :show]
-  before_action :admin_user, only: [:edit, :update, :new, :create, :destroy]
-
-
-
+  before_action :logged_in_user, only: %i[index new create edit update destroy show]
+  before_action :get_brand_by_id, only: %i[edit update show]
+  before_action :admin_user, only: %i[edit update new create destroy]
 
   def new
     @brand = Brand.new
@@ -14,7 +12,7 @@ class BrandsController < ApplicationController
   def create
     @brand = Brand.new(brand_params)
     if @brand.save
-      redirect_to brands_path, notice: "Brand created successfully."
+      redirect_to brands_path, notice: 'Brand created successfully.'
     else
       render :new, status: :unprocessable_entity
     end
@@ -23,39 +21,34 @@ class BrandsController < ApplicationController
   def index
     @brands = Brand.ordered_by_name
   end
-  
 
   def edit
-    @@previous_request = request.env["HTTP_REFERER"]
+    @@previous_request = request.env['HTTP_REFERER']
   end
 
   def update
     if @brand.update(brand_params)
-      redirect_to @@previous_request, notice: "Brand updated successfully."
+      redirect_to @@previous_request, notice: 'Brand updated successfully.'
     else
       render :edit, status: :unprocessable_entity
-    end    
+    end
   end
 
-
-  def show
-  end
+  def show; end
 
   def destroy
     Brand.find(params[:id]).destroy
     redirect_to brands_path
-    flash[:warning] = "Brand deleted successfully."
+    flash[:warning] = 'Brand deleted successfully.'
   end
-
 
   private
 
-    def brand_params
-      params.require(:brand).permit(:name, :manufacturer, :manufacturer_email, :manufacturer_office)
-    end
+  def brand_params
+    params.require(:brand).permit(:name, :manufacturer, :manufacturer_email, :manufacturer_office)
+  end
 
-    def get_brand_by_id
-      @brand = Brand.find(params[:id])
-    end
-
+  def get_brand_by_id
+    @brand = Brand.find(params[:id])
+  end
 end
