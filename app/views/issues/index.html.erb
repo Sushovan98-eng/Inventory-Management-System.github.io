@@ -18,6 +18,18 @@
       </div>
     <%end%>
 
+    <%= search_form_for @q do |f| %>
+      <div class="input-group">
+        <div class="form-outline">
+          <%= f.select :solved_at_cont, [["--select--", ""],["Solved", !nil ], ["Not Solved", nil]]%>
+        </div>
+        <%= f.submit 'Apply', class: 'btn btn-sm btn-secondary' %>
+      </div>
+    <%end%>
+  </div>
+
+  
+
   <h2>All Issues</h2>
   <% if !@issues.blank? %>
     

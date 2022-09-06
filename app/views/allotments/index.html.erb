@@ -9,7 +9,18 @@
           <div class="form-outline">
             <%= f.text_field :item_name_cont, class: 'form-control', placeholder: 'search by Item name' %> 
           </div>
-          <%= f.submit 'apply', class: 'btn  btn-sm btn-secondary' %>
+          <%= f.submit class: 'btn  btn-sm btn-secondary' %>
+        </div>
+      <%end%>
+    </div>
+
+     <div>
+      <%= search_form_for @q do |f| %> 
+        <div class="input-group">
+          <div class="form-outline">
+            <%= f.collection_select(:user_name_cont, User.all,  :name, :email, include_blank: '--select email--', class: 'form-control') %> 
+          </div>
+          <%= f.submit 'Apply', class: 'btn btn-sm btn-secondary' %>
         </div>
       <%end%>
     </div>
