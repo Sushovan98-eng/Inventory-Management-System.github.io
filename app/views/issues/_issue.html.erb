@@ -29,9 +29,9 @@
   <% end %>   
 
   <p>
-    <strong> Solved?: </strong>
+    <strong> Status: </strong>
         <% if issue.solved_at.nil? %>
-            No
+            Not Solved
         <% else %>
             Solved at : <%= issue.solved_at.strftime("%d-%m-%Y %H:%M:%S") %>
             <p>

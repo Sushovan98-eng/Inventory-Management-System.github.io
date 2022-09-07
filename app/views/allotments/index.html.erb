@@ -1,7 +1,8 @@
 <% provide(:title, 'All Allotments') %>
 
 <main class="page-body allotment">
-<%= render "shared/flash" %>
+  <%= render "shared/flash" %>
+  
   <div class ="d-flex justify-content-between">
     <div>
       <%= search_form_for @q do |f| %> 
@@ -13,24 +14,24 @@
         </div>
       <%end%>
     </div>
-
-     <div>
-      <%= search_form_for @q do |f| %> 
-        <div class="input-group">
-          <div class="form-outline">
-            <%= f.collection_select(:user_name_cont, User.all,  :name, :email, include_blank: '--select email--', class: 'form-control') %> 
+    <% if current_user.admin? %>
+      <div>
+        <%= search_form_for @q do |f| %> 
+          <div class="input-group">
+            <div class="form-outline">
+              <%= f.collection_select(:user_name_cont, User.all,  :name, :email, include_blank: '--filter by email--', class: 'form-control') %> 
+            </div>
+            <%= f.submit 'Apply', class: 'btn btn-sm btn-secondary' %>
           </div>
-          <%= f.submit 'Apply', class: 'btn btn-sm btn-secondary' %>
-        </div>
-      <%end%>
-    </div>
+        <%end%>
+      </div>
 
-    <div>
-      <% if current_user.admin? %>
-      <%= link_to "Make New Allotment", new_allotment_path, class:"btn btn-primary" %>
-      <% end %>
-    </div> 
+      <div>
+        <%= link_to "Make New Allotment", new_allotment_path, class:"btn btn-primary" %>
+      </div> 
+    <% end %>
   </div>
+  
 
   <% if !@allotments.blank? %>
     <h2>Allotment History</h2>
