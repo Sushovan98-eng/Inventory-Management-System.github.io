@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# Here define the Session helper methods for the application
 module SessionsHelper
   def current_user
     if (user_id = session[:user_id])

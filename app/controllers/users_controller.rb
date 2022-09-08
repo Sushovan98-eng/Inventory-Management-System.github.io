@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# This class is for UsersController
 class UsersController < ApplicationController
   include SessionsHelper
   before_action :logged_in_user, only: %i[edit update destroy index]

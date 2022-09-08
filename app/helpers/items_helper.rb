@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# Here define the Item helper methods for the application
 module ItemsHelper
   include BrandsHelper
   def item_display_name(item)

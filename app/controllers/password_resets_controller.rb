@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# This class is for Password Resets Controller
 class PasswordResetsController < ApplicationController
   before_action :require_no_user
 

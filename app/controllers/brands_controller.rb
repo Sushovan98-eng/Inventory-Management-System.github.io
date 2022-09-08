@@ -1,8 +1,9 @@
 # frozen_string_literal: true
 
+# This class is for Brands Controller
 class BrandsController < ApplicationController
   before_action :logged_in_user, only: %i[index new create edit update destroy show]
-  before_action :get_brand_by_id, only: %i[edit update show]
+  before_action :brand_by_id, only: %i[edit update show]
   before_action :admin_user, only: %i[edit update new create destroy]
 
   def new
@@ -48,7 +49,7 @@ class BrandsController < ApplicationController
     params.require(:brand).permit(:name, :manufacturer, :manufacturer_email, :manufacturer_office)
   end
 
-  def get_brand_by_id
+  def brand_by_id
     @brand = Brand.find(params[:id])
   end
 end

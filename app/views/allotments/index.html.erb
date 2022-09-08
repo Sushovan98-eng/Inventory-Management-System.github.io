@@ -14,7 +14,7 @@
         </div>
       <%end%>
     </div>
-    <% if current_user.admin? %>
+    <% if current_user.admin %>
       <div>
         <%= search_form_for @q do |f| %> 
           <div class="input-group">
@@ -44,50 +44,27 @@
               <th>Allotment quantity</th>
               <th><%= sort_link(@q, :created_at, 'Allotted at', class: "text-white") %></th>
               <th><%= sort_link(@q, :dealloted_at, 'Deallocated at', class: "text-white") %></th>
-              <% if current_user.admin? %>
+              <% if current_user.admin %>
                 <th></th>
               <% end %>
             </tr>
           </thead>
 
-          <tbody>
+          <tbody id="allotments-table">
             <% @allotments.each do |allotment| %>
               <% @item = get_item_by_id allotment.item_id %>
-              <tr>
-                <td>
-                <% if current_user.admin? %>
-                  <%= link_to "#{get_user_name_by_id allotment.user_id}", users_allotment_path(allotment) %>
-                <% else %>
-                  <%= get_user_name_by_id allotment.user_id %>
-                <% end %>
-                </td>
-                <td>
-                  <%= item_display_name @item %>
-                </td>
-                <td>
-                  <%= allotment.allotment_quantity %>
-                </td>
-                <td>
-                  <%= allotment.created_at.strftime("%d-%m-%Y %H:%M:%S") %>
-                </td>
-                <td>
-                  <%= get_deallotment_status allotment %>
-                </td>
-                <% if current_user.admin? %>
-                <td>
-                  <% if allotment.dealloted_at.blank? %>
-                    <%= link_to "Deallot", deallot_allotment_path(allotment), class: "btn btn-warning" %>
-                  <% end %>                      
-                </td>
-                <% end %>
-              </tr>
+
+              <%= render "allotment_row", allotment: allotment, item: @item %>
+              
             <% end %>
           </tbody>
         </table>
       </div>
   <% else %> 
     <p class="text-center">
-      <%= Current.user.admin? ? "NO allotment have been made till now. Click /'Add Allotment'/ button to make new allotment." : "NO allotment have been made till now." %>
+      <%= Current.user.admin ? "NO allotment have been made till now. Click /'Add Allotment'/ button to make new allotment." : "NO allotment have been made till now." %>
     </p>    
   <% end %>  
 </main>
+
+

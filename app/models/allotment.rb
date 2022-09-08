@@ -5,12 +5,12 @@ class Allotment < ApplicationRecord
   belongs_to :user
   belongs_to :item
 
- default_scope { order(created_at: :desc)}
+  default_scope { order(dealloted_at: :desc) }
 
   validates :user_id, presence: true
   validates :item_id, presence: true
   validates :allotment_quantity, presence: true, numericality: { only_integer: true, greater_than: 0 }
   validate :item_quantity_validation
 
-  scope :user_allotments , -> { where(user_id: Current.user.id) }
+  scope :user_allotments, -> { where(user_id: Current.user.id) }
 end

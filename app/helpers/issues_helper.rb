@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# Here define the Issue helper methods for the application
 module IssuesHelper
   def unsolved_issues_count
     @unsolved_issues_count = if current_user.admin?

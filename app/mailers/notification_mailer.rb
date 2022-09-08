@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# # This class is for Notification Mailer
 class NotificationMailer < ApplicationMailer
   helper :items
 

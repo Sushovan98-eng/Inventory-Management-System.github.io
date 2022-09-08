@@ -1,17 +1,19 @@
 # frozen_string_literal: true
 
+# # This class is for Allotment Controller
+
 class AllotmentsController < ApplicationController
   include ApplicationHelper
   include SessionsHelper
-  before_action :get_allotment_by_id, only: %i[deallot edit update]
-  before_action :get_item_by_item_id, only: %i[deallot update]
+  before_action :allotment_by_id, only: %i[deallot edit update]
+  before_action :item_by_item_id, only: %i[deallot update]
   before_action :logged_in_user, only: [:index]
   before_action :admin_user, only: %i[new edit update destroy deallot]
-  before_action :get_deallot, only: [:deallot]
+  before_action :deallot_status, only: [:deallot]
 
   def index
     @q = Allotment.ransack(params[:q])
-    @allotments = if current_user.admin?
+    @allotments = if current_user.admin
                     @q.result(distinct: true)
                   else
                     @q.result(distinct: true).user_allotments
@@ -38,27 +40,17 @@ class AllotmentsController < ApplicationController
 
   def deallot
     @item = Item.find(@allotment.item_id)
-    if @allotment.update_attribute(:dealloted_at, Time.now)
-      @item.update_attribute(:in_stock, (@item.in_stock + @allotment.allotment_quantity))
-      respond_to do |format|       
-        format.html {   redirect_to allotments_url
-                        flash[:success] = 'Item dealloted successfully.'}
-        format.json { head :no_content }
-      end
-    else
-      respond_to do |format|       
-        format.html { redirect_to allotments_path
-                      flash[:warning] = 'Item deallotment failed.' }
-        format.json { head :no_content }
+    respond_to do |format|
+      if @allotment.update_attribute(:dealloted_at, Time.now)
+        @item.update_attribute(:in_stock, (@item.in_stock + @allotment.allotment_quantity))
+          format.html { redirect_to allotments_path, notice: 'Allotment dealloted successfully.' }
+          format.js
+      else
+          format.html { redirect_to allotments_path, notice: 'Allotment deallocation failed.' }
+          format.js { render :deallot }
       end
     end
   end
-
-
-  # respond_to do |format|
-  #   format.html { redirect_to brands_url, notice: "Brand was successfully destroyed." }
-  #   format.json { head :no_content }
-  # end
 
   def users
     @allotment = Allotment.find(params[:id])
@@ -71,11 +63,11 @@ class AllotmentsController < ApplicationController
     params.require(:allotment).permit(:user_id, :item_id, :allotment_quantity)
   end
 
-  def get_allotment_by_id
+  def allotment_by_id
     @allotment = Allotment.find(params[:id])
   end
 
-  def get_item_by_item_id
+  def item_by_item_id
     @item = Item.find(@allotment.item_id)
   end
 
@@ -87,7 +79,7 @@ class AllotmentsController < ApplicationController
     notify_for_shortage_item(@item)
   end
 
-  def get_deallot
+  def deallot_status
     @allotment = Allotment.find(params[:id])
     unless @allotment.dealloted_at.nil?
       redirect_to allotments_path

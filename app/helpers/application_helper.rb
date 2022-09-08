@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# Here define the helper methods for the application
 module ApplicationHelper
   def full_title(page_title = '')
     base_title = 'Inventory Management System'

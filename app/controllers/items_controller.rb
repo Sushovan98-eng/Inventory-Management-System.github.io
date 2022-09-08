@@ -1,9 +1,10 @@
 # frozen_string_literal: true
 
+# This class is for Items Controller
 class ItemsController < ApplicationController
   include ApplicationHelper
   before_action :logged_in_user, only: %i[index new create edit update show destroy]
-  before_action :get_item_by_id, only: %i[edit update show]
+  before_action :item_by_id, only: %i[edit update show]
   before_action :admin_user, only: %i[destroy new create edit update]
 
   def index
@@ -72,7 +73,7 @@ class ItemsController < ApplicationController
   end
 
   def item_allotments
-    @allotments = Allotment.order(:created_at).reverse_order.where(item_id: params[:id]).where(dealloted_at: nil) + Allotment.order(:dealloted_at).reverse_order.where(item_id: params[:id]).where.not(dealloted_at: nil)
+    @allotments = Allotment.order(dealloted_at: :desc).where(item_id: params[:id])
   end
 
   def new_allotment
@@ -87,7 +88,7 @@ class ItemsController < ApplicationController
                                  :new_stock)
   end
 
-  def get_item_by_id
+  def item_by_id
     @item = Item.find(params[:id])
   end
 end

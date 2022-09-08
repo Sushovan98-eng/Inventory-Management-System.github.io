@@ -1,0 +1,30 @@
+
+
+<tr id="allotmentRow-<%= allotment.id %>">
+    <td>
+    <% if current_user.admin %>
+        <%= link_to "#{get_user_name_by_id allotment.user_id}", users_allotment_path(allotment) %>
+    <% else %>
+        <%= get_user_name_by_id allotment.user_id %>
+    <% end %>
+    </td>
+    <td>
+        <%= item_display_name @item %>
+    </td>
+    <td>
+        <%= allotment.allotment_quantity %>
+    </td>
+    <td>
+        <%= allotment.created_at.strftime("%d-%m-%Y %H:%M:%S") %>
+    </td>
+    <td>
+        <%= get_deallotment_status allotment %>
+    </td>
+    <% if current_user.admin %>
+    <td>
+        <% if allotment.dealloted_at.blank? %>
+             <%= link_to "Deallot", deallot_allotment_path(allotment), class: "btn btn-warning", id: "deallot", data: { confirm: "Are you sure?", bs_toggle: "modal", bs_target: "#deallot" , remote: true } %>
+        <% end %>                      
+    </td>
+    <% end %>
+</tr>

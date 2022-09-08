@@ -1,9 +1,10 @@
 # frozen_string_literal: true
 
+# This class is for Issues Controller
 class IssuesController < ApplicationController
   include SessionsHelper
   before_action :logged_in_user, only: %i[index new show create solve_issue mark_as_solved]
-  before_action :get_issue_by_id, only: %i[show solve_issue mark_as_solved]
+  before_action :issue_by_id, only: %i[show solve_issue mark_as_solved]
   before_action :admin_user, only: %i[solve_issue mark_as_solved]
 
   def index
@@ -57,7 +58,7 @@ class IssuesController < ApplicationController
     params.require(:issue).permit(:feedback)
   end
 
-  def get_issue_by_id
+  def issue_by_id
     @issue = Issue.find(params[:id])
   end
 end
