@@ -1,2 +1,2 @@
-$("#allotmentRow-<%= @allotment.id %>").html("<%= escape_javascript render('allotment_row', allotment: @allotment , item: @item) %>");
+$("#allotmentRow-<%= @allotment.id %>").replaceWith("<%= escape_javascript render('allotment_row', allotment: @allotment , item: @item) %>");
 

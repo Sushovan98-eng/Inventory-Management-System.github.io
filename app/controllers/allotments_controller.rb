@@ -47,7 +47,7 @@ class AllotmentsController < ApplicationController
           format.js
       else
           format.html { redirect_to allotments_path, notice: 'Allotment deallocation failed.' }
-          format.js { render :deallot }
+          format.js
       end
     end
   end
