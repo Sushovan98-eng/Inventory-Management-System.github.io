@@ -15,5 +15,4 @@ class Allotment < ApplicationRecord
   scope :user_allotments, -> { where(user_id: Current.user.id) }
 
   scope :allotment_of_item, ->(item_id) { order(dealloted_at: :desc).where(item_id: item_id) }
-  
 end

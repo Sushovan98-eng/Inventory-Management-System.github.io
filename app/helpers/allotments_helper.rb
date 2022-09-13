@@ -35,6 +35,4 @@ module AllotmentsHelper
   def any_allotment?
     Allotment.exists?(dealloted_at: nil)
   end
-
-  
 end

@@ -6,7 +6,7 @@ RSpec.describe 'Users', type: :request do
   describe 'GET /new' do
     it 'renders a successful response for new user' do
       get new_user_url
-      expect(response).to be_successful
+      expect(response).to render_template('new')
     end
   end
 
@@ -33,7 +33,7 @@ RSpec.describe 'Users', type: :request do
     it 'redirects to the login page as user is not signed in' do
       user = create(:user)
       get edit_user_path(user)
-      expect(response).to redirect_to root_path
+      expect(response).to redirect_to(root_path)
     end
   end
 end

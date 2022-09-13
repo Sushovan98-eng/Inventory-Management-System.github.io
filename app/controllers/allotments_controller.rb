@@ -43,12 +43,11 @@ class AllotmentsController < ApplicationController
     respond_to do |format|
       if @allotment.update_attribute(:dealloted_at, Time.now)
         @item.update_attribute(:in_stock, (@item.in_stock + @allotment.allotment_quantity))
-          format.html { redirect_to allotments_path, notice: 'Allotment dealloted successfully.' }
-          format.js
+        format.html { redirect_to allotments_path, notice: 'Allotment dealloted successfully.' }
       else
-          format.html { redirect_to allotments_path, notice: 'Allotment deallocation failed.' }
-          format.js
+        format.html { redirect_to allotments_path, notice: 'Allotment deallocation failed.' }
       end
+      format.js
     end
   end
 
