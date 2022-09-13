@@ -13,4 +13,5 @@ class Allotment < ApplicationRecord
   validate :item_quantity_validation
 
   scope :user_allotments, -> { where(user_id: Current.user.id) }
+
 end

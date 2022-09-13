@@ -3,7 +3,7 @@
 <main class="page-body allotment">
 <%= render "shared/flash" %>
   <div class ="d-flex justify-content-end">
-      <% if current_user.admin? %>
+      <% if current_user.admin %>
         <%= link_to "Make New Alltment", new_allotment_path, class:"btn btn-primary" %>
       <% end %>
   </div>
@@ -18,7 +18,7 @@
               <th>Allotment quantity</th>
               <th>Alloted at</th>
               <th>Dealloted at</th>
-              <% if current_user.admin? %>
+              <% if current_user.admin %>
                 <th></th>
               <% end %>
             </tr>
@@ -29,7 +29,7 @@
               <% @item = get_item_by_id allotment.item_id %>
               <tr>
                 <td>
-                <% if current_user.admin? %>
+                <% if current_user.admin %>
                   <%= link_to "#{get_user_name_by_id allotment.user_id}", users_allotment_path(allotment) %>
                 <% else %>
                   <%= get_user_name_by_id allotment.user_id %>
@@ -47,7 +47,7 @@
                 <td>
                   <%= get_deallotment_status allotment %>
                 </td>
-                <% if current_user.admin? %>
+                <% if current_user.admin %>
                 <td>
 
                   
@@ -77,7 +77,7 @@
       </div>
   <% else %> 
     <p class="text-center">
-      <%= Current.user.admin? ? "NO allotment have been made till now. Click 'Make New Allotment' button to make new allotment." : "NO allotment have been made till now." %>
+      <%= Current.user.admin ? "NO allotment have been made till now. Click 'Make New Allotment' button to make new allotment." : "NO allotment have been made till now." %>
     </p>    
   <% end %> 
 </main>

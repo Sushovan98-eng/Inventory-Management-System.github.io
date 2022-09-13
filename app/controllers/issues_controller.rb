@@ -9,7 +9,7 @@ class IssuesController < ApplicationController
 
   def index
     @q = Issue.ransack(params[:q])
-    @issues = if current_user.admin?
+    @issues = if current_user.admin
                 @q.result(distinct: true)
               else
                 @q.result(distinct: true).user_issues

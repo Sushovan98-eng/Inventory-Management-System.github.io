@@ -11,7 +11,7 @@
   </div>
   <br/>
   <div class="text-center">
-    <% if current_user.admin? && @issue.solved_at.nil? %>
+    <% if current_user.admin && @issue.solved_at.nil? %>
       <%= link_to "Solve issue", solve_issue_issue_path(@issue), class: "btn btn-primary"  %>  |
     <% end %>
     <%= link_to "Back", issues_path, class: "btn btn-secondary" %>

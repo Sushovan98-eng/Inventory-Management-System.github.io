@@ -20,7 +20,7 @@
     <td>
         <%= get_deallotment_status allotment %>
     </td>
-    <% if current_user.admin %>
+    <% if current_user.admin && allotment.dealloted_at.nil? %>
     <td>
         <% if allotment.dealloted_at.blank? %>
              <%= link_to "Deallot", deallot_allotment_path(allotment), class: "btn btn-warning", id: "deallot", data: { confirm: "Are you sure?", bs_target: "#deallot" , remote: true } %>

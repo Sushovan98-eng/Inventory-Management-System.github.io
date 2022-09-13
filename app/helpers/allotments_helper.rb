@@ -10,7 +10,7 @@ module AllotmentsHelper
   end
 
   def get_allotment_count(user)
-    @allotment_count = if user.admin?
+    @allotment_count = if user.admin
                          Allotment.where(dealloted_at: nil).count
                        else
                          Allotment.where({ user_id: user.id, dealloted_at: nil }).count
@@ -31,4 +31,10 @@ module AllotmentsHelper
       end
     end
   end
+
+  def any_allotment?
+    Allotment.exists?(dealloted_at: nil)
+  end
+
+  
 end

@@ -44,7 +44,7 @@
               <th>Allotment quantity</th>
               <th><%= sort_link(@q, :created_at, 'Allotted at', class: "text-white") %></th>
               <th><%= sort_link(@q, :dealloted_at, 'Deallocated at', class: "text-white") %></th>
-              <% if current_user.admin %>
+              <% if current_user.admin && any_allotment? %>
                 <th></th>
               <% end %>
             </tr>

@@ -2,7 +2,7 @@
 <%= render "shared/flash" %>
 <main class="page-body">
   <div class ="d-flex justify-content-end">
-      <% if current_user.admin? %>
+      <% if current_user.admin %>
         <%= link_to "Make New Allotment", new_allotment_item_path, class:"btn btn-primary" %>
       <% end %>
   </div>
@@ -17,7 +17,7 @@
           <th>Allotment quantity</th>
           <th>Alloted at</th>
           <th>Dealloted at</th>
-          <% if current_user.admin? %>
+          <% if current_user.admin %>
             <th></th>
           <% end %>
         </tr>
@@ -42,7 +42,7 @@
             <td>
               <%= get_deallotment_status allotment %>
             </td>
-            <% if current_user.admin? %>
+            <% if current_user.admin %>
             <td>
               
               <% if allotment.dealloted_at.blank? %>

@@ -26,7 +26,7 @@
     </div>
 
     <div>
-      <% if current_user.admin? %>
+      <% if current_user.admin %>
         <%= link_to "Add Item", new_item_path, class:"btn btn-primary" %>
       <% end %>
     </div>    
@@ -47,7 +47,7 @@
               <th><%= sort_link(@q, :total_stock, 'Total Scock', class: "text-white") %></th>
               <th><%= sort_link(@q, :price, 'Unit Price', class: "text-white") %></th>
 
-              <% if current_user.admin? %>
+              <% if current_user.admin %>
                 <th colspan="3"></th>
               <% else %>
                 <th></th>
@@ -63,7 +63,7 @@
                   <td><%= item.total_stock %></td>
                   <td><%= item.price %></td>
 
-                <% if current_user.admin? %>
+                <% if current_user.admin %>
                   <td>
                     <div class=" dropdown">
                     <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
@@ -84,7 +84,7 @@
                     <%= link_to "Show", item, class: "btn btn-primary" %>
                   </td>
                 <% end %>
-                <% if current_user.admin? %>
+                <% if current_user.admin %>
                   <td>
                     <div class=" dropdown">
                     <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">

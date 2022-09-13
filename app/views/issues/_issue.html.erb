@@ -21,7 +21,7 @@
 
   
 
-  <% if Current.user.admin? %>
+  <% if Current.user.admin %>
         <p>
             <strong> User: </strong>
             <%= get_user_name_by_id issue.user_id %>
