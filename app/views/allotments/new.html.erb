@@ -14,7 +14,7 @@
             <%= f.label :user_id %>
 
             <div>
-              <%= f.collection_select :user_id, @non_admins, :id, :name, {include_blank: '--select user--'}, {class: 'form-control'} %>
+              <%= f.collection_select :user_id, User.where(admin: false), :id, :name, {include_blank: '--select user--'}, {class: 'form-control'} %>
             </div>
           </div>
 

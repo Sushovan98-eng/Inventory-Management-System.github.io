@@ -8,7 +8,7 @@
         <%= render 'shared/error', object: f.object %>
         <div class="form-group mb-3">
           <%= f.label :new_stock %>
-          <%= f.text_area :new_stock, class: 'form-control' %>
+          <%= f.number_field :new_stock, class: 'form-control' %>
         </div>
         <div class="mb-3 d-flex justify-content-center">
         <%= f.submit "Submit", class: "btn btn-primary" %>
