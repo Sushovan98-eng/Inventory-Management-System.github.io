@@ -73,12 +73,13 @@ class ItemsController < ApplicationController
   end
 
   def item_allotments
-    @allotments = Allotment.order(dealloted_at: :desc).where(item_id: params[:id])
+    @allotments = Allotment.allotment_of_item(params[:id])
   end
 
   def new_allotment
     @item = Item.find(params[:id])
     @allotment = Allotment.new
+    @non_admins = User.non_admins
   end
 
   private

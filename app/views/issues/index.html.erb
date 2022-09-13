@@ -1,4 +1,4 @@
-<% provide(:title, (Current.user.admin? ? "All Issues" : "Your Issues")) %>
+<% provide(:title, (Current.user.admin ? "All Issues" : "Your Issues")) %>
 
 <main class="page-body">
   <%= render "shared/flash" %>
@@ -93,7 +93,7 @@
     </table>
   <% else %>
     <div class="text-center">
-      <%= Current.user.admin? ? "NO Issues have been reported till now." : "No issue is reported by you." %>
+      <%= Current.user.admin ? "NO Issues have been reported till now." : "No issue is reported by you." %>
     </div>
   <% end %> 
 </main>

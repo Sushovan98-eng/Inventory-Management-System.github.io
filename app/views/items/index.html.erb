@@ -18,7 +18,7 @@
       <%= search_form_for @q do |f| %> 
         <div class="input-group">
           <div class="form-outline">
-          <%= f.collection_select :brand_name_cont, Brand.all,  :name, :name, {include_blank: '--select brand--'}, {class: 'form-control'} %> 
+          <%= f.collection_select :brand_name_cont, Brand.all,  :name, :name, {include_blank: '--filter by brand--'}, {class: 'form-control'} %> 
           </div>
           <%= f.submit 'apply', class: 'btn  btn-sm btn-secondary' %>
         </div>

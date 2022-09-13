@@ -18,6 +18,7 @@ class IssuesController < ApplicationController
 
   def new
     @issue = Issue.new
+    @alloted_items = Item.item_for_user(current_user.id)
   end
 
   def create

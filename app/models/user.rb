@@ -12,4 +12,6 @@ class User < ApplicationRecord
   validates :mobile_no, presence: true,
                         format: { with: /\A[0-9]{10}\z/, message: ' must be a valid 10 digit number' }, uniqueness: true
   validates :password, presence: true, length: { minimum: 6 }, allow_nil: true
+
+  scope :non_admins, -> { where(admin: false) }
 end

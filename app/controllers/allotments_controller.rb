@@ -22,7 +22,7 @@ class AllotmentsController < ApplicationController
 
   def new
     @allotment = Allotment.new
-    @non_admins = User.where(admin: false)
+    @non_admins = User.non_admins
   end
 
   def create
