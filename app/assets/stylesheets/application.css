@@ -46,6 +46,14 @@ a {
   text-align: center;
 }
 
+.search-card {
+  height: 50vh;
+  margin: 10px;
+}
+
+thead {
+  background-color: rgb(183, 224, 240);
+}
 /* .page-body {
    position: relative;
  }

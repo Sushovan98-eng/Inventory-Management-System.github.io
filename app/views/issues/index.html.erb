@@ -2,98 +2,97 @@
 
 <main class="page-body">
   <%= render "shared/flash" %>
- 
-
-  <div class="d-flex justify-content-between">
-    <div>
-      <%= search_form_for @q do |f| %> 
-        <div class="input-group">
-          <div class="form-outline">
-            <%= f.text_field :item_name_cont, class: 'form-control', placeholder: 'search by Item name' %> 
-          </div>
-          <div><%= f.submit class: 'btn btn-secondary' %></div>
-        </div>
-      <%end%>
-    </div>
-    <div>
-      <%= search_form_for @q do |f| %>
-        <div class="input-group">
-          <div class="form-outline">
-            <%= f.select :solved_status_search, [["--filter by status--", ""],["Solved", "solved" ], ["Not Solved", "unsolved"]], {}, {class: 'form-control'}%>
-          </div>
-          <%= f.submit 'Apply', class: 'btn btn-sm btn-secondary' %>
-        </div>
-      <%end%>
-    </div>
-
-     <div>
+  
+  <div class="d-flex justify-content-end">
      <% if !Current.user.admin %>
       <%= link_to "Report an Issue", new_issue_path, class: "btn btn-warning" %>
      <% end %>
-    </div>
   </div>
 
-  <br/>
-
-  <h2>All Issues</h2>
-  <% if !@issues.blank? %>
-    
-    <table class="table table-striped table-hover table-bordered text-center">
-      <thead class="table-dark"> 
-        <tr>
-          <th> Issue no. </th>
-          <th> Item </th>
-          <th><%= sort_link(@q, :created_at, 'Reported at', class: "text-white") %></th>
-                 
-          <% if Current.user.admin %>
-            <th>
-              User
-            </th>
-          <% end %>
-
-          <th> Status </th>
-          <th> </th>
-        </tr>
-      </thead>
-
-      <tbody>
-        <% @issues.each do |issue| %>
-          <tr>
-            <td>
-              <%= "ISN0#{issue.id}" %>
-            </td>
-
-            <td>
-              <%= item_display_name get_item_by_id issue.item_id %>
-            </td>
-
-            <td>
-              <%= issue.created_at.strftime("%d-%m-%Y %H:%M:%S") %>
-            </td>
-
-            
-
-            <% if Current.user.admin? %>
-              <td>
-                <%= get_user_name_by_id issue.user_id %>
-              </td>
-            <% end %>
-
-            <td>
-              <% if issue.solved_at.nil? %>
-                Not Solved
-              <% else %>
-                Solved at : <%= issue.solved_at.strftime("%d-%m-%Y %H:%M:%S") %>
-              <% end %>
-            </td>
-            <td><%= link_to "Details", issue, class: "btn btn-info" %></td>
-          </tr>
-        <% end %>
-      </tbody>
-    </table>
-  <% else %>
-    <div class="text-center">
-      <%= Current.user.admin ? "NO Issues have been reported till now." : "No issue is reported by you." %>
+  <div class="d-flex bd-highlight">
+       
+    <%# search bar %>
+    <div class="card flex-shrink-1 bd-highlight search-card" style="width: 16rem;">
+      <div class="card-body">
+        <%= search_form_for @q do |f| %> 
+          <div class="input-group d-flex flex-column justify-content-between">
+            <div class="form-outline">
+              <%= f.text_field :item_name_cont, class: 'form-control', placeholder: 'search Item name' %> 
+              <%= f.label :solved_status_search, "Filter:", class: 'form-label' %>
+              <%= f.select :solved_status_search, [["--filter by status--", ""],["Solved", "solved" ], ["Not Solved", "unsolved"]], {}, {class: 'form-control'}%>
+            </div>
+            <div class="mt-3">
+              <%= f.submit class: 'btn btn-secondary' %>
+            </div>          
+          </div>
+        <%end%>
+      </div>
     </div>
-  <% end %> 
+
+
+    <%# main content %>
+    <div class="w-100 bd-highlight">
+      <h2>All Issues</h2>
+      <% if !@issues.blank? %>
+        
+        <table class="table table-striped table-hover table-bordered text-center">
+          <thead> 
+            <tr>
+              <th> Issue no. </th>
+              <th> Item </th>
+              <th><%= sort_link(@q, :created_at, 'Reported at') %></th>
+                    
+              <% if Current.user.admin %>
+                <th>
+                  User
+                </th>
+              <% end %>
+
+              <th> Status </th>
+              <th> </th>
+            </tr>
+          </thead>
+
+          <tbody>
+            <% @issues.each do |issue| %>
+              <tr>
+                <td>
+                  <%= "ISN0#{issue.id}" %>
+                </td>
+
+                <td>
+                  <%= item_display_name get_item_by_id issue.item_id %>
+                </td>
+
+                <td>
+                  <%= issue.created_at.strftime("%d-%m-%Y %H:%M:%S") %>
+                </td>
+
+                
+
+                <% if Current.user.admin? %>
+                  <td>
+                    <%= get_user_name_by_id issue.user_id %>
+                  </td>
+                <% end %>
+
+                <td>
+                  <% if issue.solved_at.nil? %>
+                    Not Solved
+                  <% else %>
+                    Solved at : <%= issue.solved_at.strftime("%d-%m-%Y %H:%M:%S") %>
+                  <% end %>
+                </td>
+                <td><%= link_to "Details", issue, class: "btn btn-info" %></td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+      <% else %>
+        <div class="text-center">
+          <%= Current.user.admin ? "NO Issues have been reported till now." : "No issue is reported by you." %>
+        </div>
+      <% end %> 
+    </div>
+  </div>  
 </main>
