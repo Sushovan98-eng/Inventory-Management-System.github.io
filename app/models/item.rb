@@ -14,12 +14,11 @@ class Item < ApplicationRecord
 
   default_scope { order(name: :asc) }
 
-  scope :item_for_user, lambda { |user_id|
-                          where(id: [Allotment.select(:item_id).where(user_id: user_id, dealloted_at: nil)])
-                        }
-
   def item_display_name
     @brand_name = brand_id.nil? ? '<Brand N/A>' : Brand.find(brand_id).name
     "Brand:#{@brand_name} Name:#{name} Currently in stock : #{in_stock}"
   end
+
+  scope :item_for_user, -> (user_id) { where(id: [Allotment.select(:item_id).where(user_id: user_id, dealloted_at: nil)]) }
+  
 end
