@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# This class is for Item
 class Item < ApplicationRecord
   belongs_to :category
   belongs_to :brand

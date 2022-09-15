@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# This class is for Issue
 class Issue < ApplicationRecord
   belongs_to :user
   belongs_to :item

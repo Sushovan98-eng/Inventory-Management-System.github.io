@@ -7,7 +7,7 @@ class AllotmentsController < ApplicationController
   include SessionsHelper
   before_action :allotment_by_id, only: %i[deallot edit update]
   before_action :item_by_item_id, only: %i[deallot update]
-  before_action :logged_in_user, only: [:index]
+  before_action :logged_in_user, only: %i[index new]
   before_action :admin_user, only: %i[new edit update destroy deallot]
   before_action :deallot_status, only: [:deallot]
 

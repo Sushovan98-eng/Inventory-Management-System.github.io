@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# This class is for User
 class User < ApplicationRecord
   has_secure_password
   has_many :allotments, dependent: :destroy
