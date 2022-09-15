@@ -12,10 +12,10 @@ module ApplicationHelper
   end
 
   def notify_for_shortage_item(item)
-    if item.in_stock <= item.minimum_required_stock
-      User.where(admin: true).each do |user|
-        NotificationMailer.item_shortage_notification(user, item).deliver_now
-      end
+    return unless item.in_stock <= item.minimum_required_stock
+
+    User.where(admin: true).each do |user|
+      NotificationMailer.item_shortage_notification(user, item).deliver_now
     end
   end
 end

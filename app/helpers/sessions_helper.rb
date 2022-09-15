@@ -23,16 +23,15 @@ module SessionsHelper
   end
 
   def logged_in_user
-    unless logged_in?
-      flash[:alert] = 'Please log in FIRST.'
-      redirect_to root_path
-    end
+    return if logged_in?
+
+    flash[:alert] = 'Please log in FIRST.'
+    redirect_to root_path
   end
 
   def admin_user
-    unless current_user.admin
-      flash[:alert] = 'You are not authorized to perform this action.'
-      redirect_to root_path and return
-    end
+    return if current_user.admin
+    flash[:alert] = 'You are not authorized to perform this action.'
+    redirect_to root_path and return
   end
 end

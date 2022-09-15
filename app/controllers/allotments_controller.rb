@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 # # This class is for Allotment Controller
-
 class AllotmentsController < ApplicationController
   include ApplicationHelper
   include SessionsHelper
@@ -80,9 +79,9 @@ class AllotmentsController < ApplicationController
 
   def deallot_status
     @allotment = Allotment.find(params[:id])
-    unless @allotment.dealloted_at.nil?
-      redirect_to allotments_path
-      flash[:warning] = 'This allotment has been dealloted.'
-    end
+    return if @allotment.dealloted_at.nil?
+
+    redirect_to allotments_path
+    flash[:warning] = 'This allotment has been dealloted.'
   end
 end
