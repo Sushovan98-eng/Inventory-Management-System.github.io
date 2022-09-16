@@ -21,7 +21,7 @@
             </div>
             <div class="ms-4"> 
               <% if current_user.admin %>
-                <%= f.collection_select :user_name_cont, User.all,  :name, :email, {include_blank: '---select email---'}, {class: 'form-control'} %> 
+                <%= f.collection_select :user_name_cont, User.non_admins,  :name, :email, {include_blank: '---select email---'}, {class: 'form-control'} %> 
               <% end %>
             </div>
           </div>
