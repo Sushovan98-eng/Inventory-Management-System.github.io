@@ -14,4 +14,10 @@ module ItemsHelper
 
     Item.find(id)
   end
+
+  def get_item_in_stock(item)
+    return 0 if item.nil?
+
+    item.in_stock
+  end
 end

@@ -2,6 +2,7 @@
 
 # Here define the helper methods for allotment
 module AllotmentsHelper
+  include ItemsHelper
   def get_deallotment_status(allotment)
     if allotment.dealloted_at.nil?
       'Currently alloted.'
@@ -21,14 +22,14 @@ module AllotmentsHelper
   def item_quantity_validation
     return unless item_id.present?
 
-    item = Item.find(item_id)
+    item = Item.find_by(id: item_id)
     if Allotment.where(user_id: user_id, item_id: item_id, dealloted_at: nil).exists?
       previous_quantity = Allotment.where(user_id: user_id, item_id: item_id).last.allotment_quantity
-      total_stock = item.in_stock + previous_quantity
+      total_stock = get_item_in_stock(item) + previous_quantity
       if allotment_quantity.to_i > previous_quantity && total_stock < allotment_quantity.to_i
         errors.add(:allotment_quantity, ' is not sufficient for this allotment.')
       end
-    elsif item.in_stock < allotment_quantity.to_i
+    elsif get_item_in_stock(item) < allotment_quantity.to_i
       errors.add(:allotment_quantity, 'is more than the available stock')
     end
   end

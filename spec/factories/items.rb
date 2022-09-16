@@ -8,6 +8,7 @@ FactoryBot.define do
     brand_id { 1 }
     category_id { 1 }
     total_stock { 10 }
+    in_stock { 10 }
   end
 
   factory :invalid_item, class: Item do
@@ -18,5 +19,6 @@ FactoryBot.define do
     brand_id
     category_id
     total_stock { 10 }
+    in_stock { 10 }
   end
 end

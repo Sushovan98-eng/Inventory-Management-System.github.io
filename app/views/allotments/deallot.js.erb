@@ -1,2 +1,6 @@
 $("#allotmentRow-<%= @allotment.id %>00").replaceWith("<%= escape_javascript render('allotment_row', allotment: @allotment , item: @item) %>");
 
+
+<% if Allotment.allotment_count >= 1  %>
+$("#allotmentRow-<%= @allotment.id %>00").insertAfter("#allotmentRow-<%= Allotment.last_allotment.id %>00","<%= escape_javascript render('allotment_row', allotment: @allotment , item: @item) %>");
+<% end %>

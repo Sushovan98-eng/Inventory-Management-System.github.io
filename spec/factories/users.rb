@@ -18,6 +18,6 @@ FactoryBot.define do
     password { 'user123' }
     password_confirmation { 'user123' }
     admin { false }
-    mobile_no { '1234567890' }
+    mobile_no { '1634567890' }
   end
 end

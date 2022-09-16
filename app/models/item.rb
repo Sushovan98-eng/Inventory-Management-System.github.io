@@ -19,6 +19,7 @@ class Item < ApplicationRecord
     "Brand:#{@brand_name} Name:#{name} Currently in stock : #{in_stock}"
   end
 
-  scope :item_for_user, -> (user_id) { where(id: [Allotment.select(:item_id).where(user_id: user_id, dealloted_at: nil)]) }
-  
+  scope :item_for_user, lambda { |user_id|
+                          where(id: [Allotment.select(:item_id).where(user_id: user_id, dealloted_at: nil)])
+                        }
 end

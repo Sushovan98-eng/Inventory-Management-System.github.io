@@ -31,6 +31,7 @@ module SessionsHelper
 
   def admin_user
     return if current_user.admin
+
     flash[:alert] = 'You are not authorized to perform this action.'
     redirect_to root_path and return
   end

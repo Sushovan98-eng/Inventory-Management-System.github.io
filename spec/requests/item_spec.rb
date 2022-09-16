@@ -11,7 +11,7 @@ RSpec.describe 'Items', type: :request do
       expect(response).to render_template('new')
     end
 
-    it 'redirects to the login page as user is not signed in' do
+    it 'redirects to the root page as user is not signed in' do
       get new_item_url
       expect(response).to redirect_to(root_path)
     end
