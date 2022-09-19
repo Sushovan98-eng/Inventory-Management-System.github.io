@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# Create Allotments table
 class CreateAllotments < ActiveRecord::Migration[7.0]
   def change
     create_table :allotments do |t|

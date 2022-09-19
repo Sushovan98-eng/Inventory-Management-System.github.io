@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# Adding uniqueness constraint to table
 class AddUniquenessConstraint < ActiveRecord::Migration[7.0]
   def change
     add_index :brands, :name, unique: { case_sensitive: false }
