@@ -38,10 +38,7 @@ class IssuesController < ApplicationController
   def mark_as_solved
     data = issue_solve_params.merge(solved_at: DateTime.now)
     @user = User.find(@issue.user_id)
-    if issue_solve_params[:feedback].blank?
-      flash.now[:warning] = 'Please provide feedback for the issue.'
-      render :solve_issue, status: :unprocessable_entity
-    elsif @issue.update(data)
+    if @issue.update(data)
       redirect_to issues_path, flash: { notice: 'Issue solved successfully.' }
       NotificationMailer.issue_notification(@user, @issue).deliver_now
     else
