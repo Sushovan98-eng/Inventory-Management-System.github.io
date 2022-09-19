@@ -7,7 +7,9 @@ RSpec.describe Item, type: :model do
     item = Item.new(id: 1, name: '', price: 100, brand_id: 1, category_id: 1, total_stock: 10)
     expect(item).to_not be_valid
 
-    item = Item.new(id: 1, name: 'Tab', price: 100, brand_id: 1, category_id: 1, total_stock: 10)
+    create(:brand)
+    create(:category)
+    item = Item.new(id: 1, name: 'Tab', price: 100, brand_id: 2, category_id: 2, total_stock: 10)
     expect(item).to be_valid
   end
 
@@ -15,7 +17,9 @@ RSpec.describe Item, type: :model do
     item = Item.new(id: 2, name: 'Tab', price: 100, brand_id: '', category_id: 1, total_stock: 10)
     expect(item).to_not be_valid
 
-    item = Item.new(id: 2, name: 'Tab', price: 100, brand_id: 1, category_id: 1, total_stock: 10)
+    create(:brand)
+    create(:category)
+    item = Item.new(id: 2, name: 'Tab', price: 100, brand_id: 2, category_id: 2, total_stock: 10)
     expect(item).to be_valid
   end
 
@@ -23,7 +27,9 @@ RSpec.describe Item, type: :model do
     item = Item.new(id: 3, name: 'Tab', price: 100, brand_id: 1, category_id: '', total_stock: 10)
     expect(item).to_not be_valid
 
-    item = Item.new(id: 3, name: 'Tab', price: 100, brand_id: 1, category_id: 1, total_stock: 10)
+    create(:brand)
+    create(:category)
+    item = Item.new(id: 3, name: 'Tab', price: 100, brand_id: 2, category_id: 2, total_stock: 10)
     expect(item).to be_valid
   end
 end

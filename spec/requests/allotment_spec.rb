@@ -22,6 +22,8 @@ RSpec.describe 'Allotments', type: :request do
       it 'should create a new allotment' do
         admin = create(:admin)
         create(:user)
+        create(:brand)
+        create(:category)
         create(:item)
         post sign_in_url, params: { email: admin.email, password: admin.password }
         expect do
@@ -45,6 +47,8 @@ RSpec.describe 'Allotments', type: :request do
       admin = create(:admin)
       post sign_in_url, params: { email: admin.email, password: admin.password }
       create(:user)
+      create(:brand)
+      create(:category)
       create(:item)
       allotment = create(:allotment)
       get deallot_allotment_path(allotment)
@@ -56,6 +60,8 @@ RSpec.describe 'Allotments', type: :request do
     admin = create(:admin)
     post sign_in_url, params: { email: admin.email, password: admin.password }
     create(:user)
+    create(:brand)
+    create(:category)
     create(:item)
     allotment = create(:dealloted_allotment)
     get deallot_allotment_path(allotment)

@@ -9,6 +9,14 @@ FactoryBot.define do
     manufacturer_office { 'Kolkata' }
   end
 
+  factory :brand4, class: Brand do
+    id { 4 }
+    name { 'Brand4' }
+    manufacturer { 'Manufacturer' }
+    manufacturer_email { 'manufacturer4@gmail.com' }
+    manufacturer_office { 'Kolkata' }
+  end
+
   factory :invalid_brand, class: Brand do
     id { 3 }
     name { '' }

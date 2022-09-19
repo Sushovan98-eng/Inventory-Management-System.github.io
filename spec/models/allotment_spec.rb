@@ -3,13 +3,15 @@
 require 'rails_helper'
 
 RSpec.describe Allotment, type: :model do
-  it 'user_id should be present' do
+  it 'user_id should be present' do  
     allotment = Allotment.new(item_id: 1, allotment_quantity: 1)
     expect(allotment).to_not be_valid
 
-    create(:user)
-    create(:item)
-    allotment = Allotment.new(user_id: 2, item_id: 2, allotment_quantity: 1)
+    create(:user3)
+    create(:brand4)
+    create(:category)
+    create(:item3)
+    allotment = Allotment.new(user_id: 3, item_id: 3, allotment_quantity: 1)
     expect(allotment).to be_valid
   end
 
@@ -18,7 +20,9 @@ RSpec.describe Allotment, type: :model do
     expect(allotment).to_not be_valid
 
     create(:user)
-    create(:item)
+    create(:brand)
+    create(:category)
+    create(:item) 
     allotment = Allotment.new(user_id: 2, item_id: 2, allotment_quantity: 1)
     expect(allotment).to be_valid
   end
@@ -28,7 +32,9 @@ RSpec.describe Allotment, type: :model do
     expect(allotment).to_not be_valid
 
     create(:user)
-    create(:item)
+    create(:brand)
+    create(:category)
+    create(:item) 
     allotment = Allotment.new(user_id: 2, item_id: 2, allotment_quantity: 1)
     expect(allotment).to be_valid
 

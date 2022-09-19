@@ -21,5 +21,4 @@ class Allotment < ApplicationRecord
   scope :last_allotment, -> { where(dealloted_at: nil).order(created_at: :desc).first }
 
   scope :allotment_count, -> { where(dealloted_at: nil).count }
-
 end
