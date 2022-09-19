@@ -38,13 +38,10 @@ class ItemsController < ApplicationController
   def update
     previous_quantity = @item.total_stock
     if (item_params[:total_stock].to_i - previous_quantity + @item.in_stock).negative?
-      redirect_to edit_item_path(@item)
-      flash[:warning] = 'Currently more items are alloted than entered values.'
+      redirect_to edit_item_path(@item), flash: { warning: 'Currently more items are alloted than entered value.' }
     elsif @item.update(item_params)
-      redirect_to @@previous_request
-      flash[:warning] = 'Item updated successfully.'
-      @item.in_stock += @item.total_stock - previous_quantity
-      @item.update_attribute(:in_stock, @item.in_stock)
+      redirect_to @@previous_request, flash: { notice: 'Item updated successfully.' }
+      update_stock(@item, previous_quantity)
     else
       render :edit, status: :unprocessable_entity
     end
@@ -62,8 +59,7 @@ class ItemsController < ApplicationController
 
   def increase_stock
     @item = Item.find(params[:id])
-    @item.total_stock += item_params[:new_stock].to_i
-    @item.in_stock += item_params[:new_stock].to_i
+    @item.total_stock, @item.in_stock = add_new_stock(@item, item_params[:new_stock].to_i)
     if @item.save
       redirect_to items_path
       flash[:warning] = 'Stock increased successfully.'
@@ -91,5 +87,16 @@ class ItemsController < ApplicationController
 
   def item_by_id
     @item = Item.find(params[:id])
+  end
+
+  def update_stock(item, previous_quantity)
+    item.in_stock += item.total_stock - previous_quantity
+    item.update_attribute(:in_stock, item.in_stock)
+  end
+
+  def add_new_stock(item, new_stock)
+    item.total_stock += new_stock
+    item.in_stock += new_stock
+    [item.total_stock, item.in_stock]
   end
 end

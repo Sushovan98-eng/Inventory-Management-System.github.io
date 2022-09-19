@@ -21,4 +21,8 @@ class Allotment < ApplicationRecord
   scope :last_allotment, -> { where(dealloted_at: nil).order(created_at: :desc).first }
 
   scope :allotment_count, -> { where(dealloted_at: nil).count }
+
+  scope :last_allotment_quantity, lambda { |user_id, item_id|
+                                    where(user_id: user_id, item_id: item_id).last.allotment_quantity
+                                  }
 end

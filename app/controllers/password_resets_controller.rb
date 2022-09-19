@@ -36,8 +36,7 @@ class PasswordResetsController < ApplicationController
   def update
     @user = User.find_signed!(@@token, purpose: 'password_reset')
     if password_blank
-      flash.now[:warning] = 'Please enter a password and confirm it.'
-      render :edit, status: :unprocessable_entity
+      redirect_to password_reset_edit_path, alert: 'Please enter a password and confirm it.'
     elsif @user.update(password_params)
       redirect_to sign_in_path, notice: 'Password has been reset.'
       @@token = nil
