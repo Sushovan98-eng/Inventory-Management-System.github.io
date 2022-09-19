@@ -26,9 +26,7 @@ class ItemsController < ApplicationController
     end
   end
 
-  def edit
-    @@previous_request = request.env['HTTP_REFERER']
-  end
+  def edit; end
 
   def show
     @brand_name = @item.brand_id.nil? ? '<--Null-->' : Brand.find(@item.brand_id).name
@@ -40,7 +38,7 @@ class ItemsController < ApplicationController
     if (item_params[:total_stock].to_i - previous_quantity + @item.in_stock).negative?
       redirect_to edit_item_path(@item), flash: { warning: 'Currently more items are alloted than entered value.' }
     elsif @item.update(item_params)
-      redirect_to @@previous_request, flash: { notice: 'Item updated successfully.' }
+      redirect_to params[:previous_request], flash: { notice: 'Item updated successfully.' }
       update_stock(@item, previous_quantity)
     else
       render :edit, status: :unprocessable_entity

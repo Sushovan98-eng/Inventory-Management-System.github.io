@@ -23,13 +23,11 @@ class BrandsController < ApplicationController
     @brands = Brand.ordered_by_name
   end
 
-  def edit
-    @@previous_request = request.env['HTTP_REFERER']
-  end
+  def edit; end
 
   def update
     if @brand.update(brand_params)
-      redirect_to @@previous_request, notice: 'Brand updated successfully.'
+      redirect_to params[:previous_request], notice: 'Brand updated successfully.'
     else
       render :edit, status: :unprocessable_entity
     end

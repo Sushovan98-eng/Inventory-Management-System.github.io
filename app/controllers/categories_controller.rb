@@ -23,15 +23,13 @@ class CategoriesController < ApplicationController
     end
   end
 
-  def edit
-    @@previous_request = request.env['HTTP_REFERER']
-  end
+  def edit; end
 
   def show; end
 
   def update
     if @category.update(category_params)
-      redirect_to @@previous_request, notice: 'Category updated successfully.'
+      redirect_to params[:previous_request], notice: 'Category updated successfully.'
     else
       render :edit, status: :unprocessable_entity
     end
