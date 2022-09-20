@@ -68,7 +68,7 @@ class PasswordResetsController < ApplicationController
   end
 
   def generate_token
-    @token = @user.signed_id(purpose: 'password_reset', expires_in: 5.minutes)
+    @token = @user.signed_id(purpose: 'password_reset', expires_in: 15.minutes)
     @token
   end
 end
