@@ -2,14 +2,7 @@
 
 FactoryBot.define do
   factory :category, class: Category do
-    id { 2 }
-    name { 'Category' }
-    description { 'Description' }
-  end
-
-  factory :invalid_category, class: Category do
-    id { 3 }
-    name { '' }
-    description { 'Description' }
+    name { 'Laptop' }
+    description { 'It is for Laptop' }
   end
 end

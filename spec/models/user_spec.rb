@@ -3,9 +3,6 @@
 require 'rails_helper'
 
 RSpec.describe User, type: :model do
-  # it{ should have_many(:issue) }
-  # it{ should have_many(:allotment) }
-
   it 'name should be present' do
     user = User.new(name: '', email: 'test@gmail.com', mobile_no: '7644837568', password: 'Test@1',
                     password_confirmation: 'Test@1')

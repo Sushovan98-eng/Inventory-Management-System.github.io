@@ -3,10 +3,12 @@
 require 'rails_helper'
 
 RSpec.describe 'Brands', type: :request do
+  before(:each) do
+    @admin = create(:admin)
+  end
   describe 'GET /new' do
     it 'renders a successful response for new brand' do
-      user = create(:admin)
-      post sign_in_url, params: { email: user.email, password: user.password }
+      post sign_in_url, params: { email: @admin.email, password: @admin.password }
       get new_brand_url
       expect(response).to render_template('new')
     end
@@ -20,22 +22,20 @@ RSpec.describe 'Brands', type: :request do
   describe 'POST#create' do
     context 'with valid brand attributes' do
       it 'should create a new brand' do
-        user = create(:admin)
-        post sign_in_url, params: { email: user.email, password: user.password }
+        post sign_in_url, params: { email: @admin.email, password: @admin.password }
         expect do
           post brands_path,
-               params: { brand: { name: 'Brand', manufacturer: 'Manufacturer',
-                                  manufacturer_email: 'manufacturer@gmail.com',
+               params: { brand: { name: 'Canon', manufacturer: 'Canon Manufacturer',
+                                  manufacturer_email: 'canon@gmail.com',
                                   manufacturer_office: 'Kolkata' } }
         end.to change(Brand, :count).by(1)
       end
 
       it 'redirects to the new brand' do
-        user = create(:admin)
-        post sign_in_url, params: { email: user.email, password: user.password }
+        post sign_in_url, params: { email: @admin.email, password: @admin.password }
         post brands_path,
-             params: { brand: { name: '', manufacturer: 'Manufacturer',
-                                manufacturer_email: 'manufacturer@gmail.com',
+             params: { brand: { name: '', manufacturer: 'Canon Manufacturer',
+                                manufacturer_email: 'canon@gmail.com',
                                 manufacturer_office: 'Kolkata' } }
         expect(response).to_not be_successful
       end
@@ -50,8 +50,7 @@ RSpec.describe 'Brands', type: :request do
     end
 
     it 'renders a successful response for edit brand' do
-      user = create(:admin)
-      post sign_in_url, params: { email: user.email, password: user.password }
+      post sign_in_url, params: { email: @admin.email, password: @admin.password }
       brand = create(:brand)
       get edit_brand_path(brand)
       expect(response).to render_template('edit')
@@ -66,8 +65,7 @@ RSpec.describe 'Brands', type: :request do
     end
 
     it 'redirects to the brands page after deleting a brand' do
-      user = create(:admin)
-      post sign_in_url, params: { email: user.email, password: user.password }
+      post sign_in_url, params: { email: @admin.email, password: @admin.password }
       brand = create(:brand)
       delete brand_path(brand)
       expect(response).to redirect_to(brands_path)
