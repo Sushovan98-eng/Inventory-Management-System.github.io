@@ -34,11 +34,12 @@ class ItemsController < ApplicationController
   end
 
   def update
+    previous_quantity = @item.total_stock
     if check_stock(@item, item_params[:total_stock].to_i)
       redirect_to edit_item_path(@item), flash: { warning: 'Currently more items are alloted than entered value.' }
     elsif @item.update(item_params)
       redirect_to params[:previous_request], flash: { notice: 'Item updated successfully.' }
-      update_stock(@item, @item.total_stock)
+      update_stock(@item, previous_quantity)
     else
       render :edit, status: :unprocessable_entity
     end
