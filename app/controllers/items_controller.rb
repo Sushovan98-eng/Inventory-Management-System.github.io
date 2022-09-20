@@ -7,6 +7,12 @@ class ItemsController < ApplicationController
   before_action :item_by_id, only: %i[edit update show]
   before_action :admin_user, only: %i[destroy new create edit update]
 
+  @previous_request = nil
+
+  class << self
+    attr_accessor :previous_request
+  end
+
   def index
     @q = Item.ransack(params[:q])
     @items = @q.result(distinct: true)
@@ -26,7 +32,9 @@ class ItemsController < ApplicationController
     end
   end
 
-  def edit; end
+  def edit
+    self.class.previous_request = request.referer
+  end
 
   def show
     @brand_name = @item.brand_id.nil? ? '<--Null-->' : Brand.find(@item.brand_id).name
@@ -36,9 +44,10 @@ class ItemsController < ApplicationController
   def update
     previous_quantity = @item.total_stock
     if check_stock(@item, item_params[:total_stock].to_i)
-      redirect_to edit_item_path(@item), flash: { warning: 'Currently more items are alloted than entered value.' }
+      flash.now[:warning] = 'Currently more items are alloted than entered value.'
+      render :edit, status: :unprocessable_entity
     elsif @item.update(item_params)
-      redirect_to params[:previous_request], flash: { notice: 'Item updated successfully.' }
+      redirect_to self.class.previous_request, flash: { notice: 'Item updated successfully.' }
       update_stock(@item, previous_quantity)
     else
       render :edit, status: :unprocessable_entity

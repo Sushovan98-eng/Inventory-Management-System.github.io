@@ -6,6 +6,12 @@ class BrandsController < ApplicationController
   before_action :brand_by_id, only: %i[edit update show]
   before_action :admin_user, only: %i[edit update new create destroy]
 
+  @previous_request = nil
+
+  class << self
+    attr_accessor :previous_request
+  end
+
   def new
     @brand = Brand.new
   end
@@ -23,11 +29,13 @@ class BrandsController < ApplicationController
     @brands = Brand.ordered_by_name
   end
 
-  def edit; end
+  def edit
+    self.class.previous_request = request.referer
+  end
 
   def update
     if @brand.update(brand_params)
-      redirect_to params[:previous_request], notice: 'Brand updated successfully.'
+      redirect_to self.class.previous_request, notice: 'Brand updated successfully.'
     else
       render :edit, status: :unprocessable_entity
     end

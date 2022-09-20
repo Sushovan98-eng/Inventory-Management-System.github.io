@@ -6,6 +6,12 @@ class CategoriesController < ApplicationController
   before_action :category_by_id, only: %i[edit show update]
   before_action :admin_user, only: %i[new create edit update destroy]
 
+  @previous_request = nil
+
+  class << self
+    attr_accessor :previous_request
+  end
+
   def index
     @categories = Category.ordered_by_name
   end
@@ -23,13 +29,15 @@ class CategoriesController < ApplicationController
     end
   end
 
-  def edit; end
+  def edit
+    self.class.previous_request = request.referer
+  end
 
   def show; end
 
   def update
     if @category.update(category_params)
-      redirect_to params[:previous_request], notice: 'Category updated successfully.'
+      redirect_to self.class.previous_request, notice: 'Category updated successfully.'
     else
       render :edit, status: :unprocessable_entity
     end
