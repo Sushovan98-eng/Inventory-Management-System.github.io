@@ -4,20 +4,15 @@
 class PasswordResetsController < ApplicationController
   before_action :require_no_user
 
-  @token = 'token'
-
-  class << self
-    attr_accessor :token
-  end
-
   def new; end
 
   def create
     @user = User.find_by(email: params[:email].downcase)
     if @user.present?
       # send an  email with the reset link
-      self.class.token = generate_token
-      PasswordMailer.with(user: @user, token: PasswordResetsController.token).reset.deliver_now
+      @token = generate_token
+      @user.update_attribute(:token, @token)
+      PasswordMailer.with(user: @user, token: @token).reset.deliver_now
       redirect_to root_path, notice: 'Email sent with password reset instructions.'
     else
       redirect_to password_reset_path, alert: 'Email not found.'
@@ -25,12 +20,11 @@ class PasswordResetsController < ApplicationController
   end
 
   def edit
-    if self.class.token.nil?
+    @user = User.find_signed!(params[:token], purpose: 'password_reset')
+    if @user.token == 'deleted'
       redirect_to sign_in_path,
                   alert: 'You have already reset your password.
                   You can log in using your new password or generate a new password reset link.'
-    else
-      @user = User.find_signed!(params[:token], purpose: 'password_reset')
     end
   rescue StandardError
     redirect_to root_path, alert: 'Invalid link.'
@@ -43,7 +37,7 @@ class PasswordResetsController < ApplicationController
       render :edit, status: :unprocessable_entity
     elsif @user.update(password_params)
       redirect_to sign_in_path, notice: 'Password has been reset.'
-      PasswordResetsController.token = nil
+      @user.update_attribute(:token, 'deleted')
     else
       render :edit, status: :unprocessable_entity
     end
